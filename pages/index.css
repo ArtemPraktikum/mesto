@@ -1,2 +1,18 @@
 @import "../vendor/normalize.css";
 @import "../vendor/fonts/font.css";
+.page {
+  min-width: 320px;
+  width: 100%;
+  background-color: #000;
+  padding-top: 28px;
+}
+.header {
+  padding-left: 27px;
+  padding-bottom: 31px;
+  border-bottom: 1px solid #545454b1;
+  box-sizing: border-box;
+}
+.header__logo {
+  width: 104px;
+  height: auto;
+}
