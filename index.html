@@ -10,8 +10,93 @@
 
 <body class="page">
   <header class="header">
-    <img src="./images/logo.svg" alt="Логоти Место" class="header__logo">
+    <img src="./images/logo.svg" alt="Логотип Место" class="header__logo">
   </header>
+
+  <main class="content">
+    <section class="profile">
+      <img src="./images/Avatar.png" alt="Аватар профиля" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <img src="./images/buttons/EditButton.svg" alt="Кнопка редактировать профиль" class="profile__edit-button">
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+      <img src="./images/buttons/AddButton.svg" alt="Кнопка Добавить" class="profile__add-button">
+    </section>
+
+    <section class="elements">
+      <article class="element">
+        <img src="./images/ElementsImages/img1.png" alt="Замок на холме" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Карачаево-Черкессия</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+
+      <article class="element">
+        <img src="./images/ElementsImages/img2.png" alt="Горы в далеке" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+
+      <article class="element">
+        <img src="./images/ElementsImages/img3.png" alt="Горы за лесом" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Домбай</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+
+      <article class="element">
+        <img src="./images/ElementsImages/img2.png" alt="Горы в далеке" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+
+      <article class="element">
+        <img src="./images/ElementsImages/img3.png" alt="Горы за лесом" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Домбай</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+
+      <article class="element">
+        <img src="./images/ElementsImages/img1.png" alt="Замок на холме" class="element__image">
+        <div class="element__discription">
+          <h2 class="element__title">Карачаево-Черкессия</h2>
+          <img src="./images/buttons/likebutton.svg" alt="кнопка лайк" class="element__like-button">
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+
+  <section class="popup">
+    <form class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <fieldset class="popup__input">
+        <label for="name"></label>
+        <input type="text" class="popup__item" id="name" name="name" value="Жак-Ив Кусто" placeholder="Name" required>
+        <label for="aboutme"></label>
+        <input type="text" class="popup__item" id="aboutme" name="aboutme" value="Исследователь океана" placeholder="About me" required>
+      </fieldset>
+
+      <fieldset class="popup__input-sumbit">
+        <button type="submit" class="popup__sumbit-button">Сохранить</button>
+      </fieldset>
+
+      <img src="./images/buttons/Closebutton.svg" alt="кнопка закрыть форму" class="popup__close-button">
+    </form>
+  </section>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>

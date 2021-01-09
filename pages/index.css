@@ -1,18 +1,225 @@
 @import "../vendor/normalize.css";
 @import "../vendor/fonts/font.css";
 .page {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
   min-width: 320px;
   width: 100%;
   background-color: #000;
   padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
 }
 .header {
   padding-left: 27px;
   padding-bottom: 31px;
   border-bottom: 1px solid #545454b1;
   box-sizing: border-box;
+  max-width: 320px;
+  width: 100%;
 }
 .header__logo {
   width: 104px;
   height: auto;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 42px;
+  max-width: calc(320px - 19px * 2);
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 36px;
+}
+.profile__avatar {
+  width: 120px;
+  height: auto;
+  padding-bottom: 22px;
+
+}
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.profile__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 1.22;
+  text-align: center;
+}
+.profile__edit-button {
+  position: absolute;
+  top: 8px;
+  right: 19px;
+}
+.profile__subtitle {
+  padding-top: 14px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+}
+.profile__add-button {
+  padding-top: 36px;
+
+}
+.elements {
+  padding-bottom: 48px;
+}
+.element {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.element:last-of-type {
+  margin-bottom: 0;
+}
+.element__image {
+  width: 282px;
+  height: auto;
+}
+.element__discription {
+  padding-top: 25px;
+  padding-bottom: 31px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 246px;
+  width: 100%;
+
+}
+.element__title {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0;
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.element__like-button {
+  width: 22px;
+  height: auto;
+}
+.footer {
+  max-width: calc(320px - 19px * 2);
+  width: 100%;
+  padding-bottom: 36px;
+}
+.footer__copyright {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #545454;
+}
+.popup {
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 123px 19px 0;
+  padding-top: 350px;
+
+}
+.popup_opened {
+  display: flex;
+}
+.popup__container {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 282px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px 22px;
+  position: relative;
+}
+.popup__title {
+  width: 100%;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #000;
+  margin: 0;
+  padding-bottom: 75px;
+}
+/* .popup__main-container {
+  width: 100%;
+} */
+.popup__input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.popup__item {
+  padding: 0;
+  width: 100%;
+  padding-bottom: 13px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-size: 14px;
+  line-height: 1.21;
+  margin-bottom: 30px;
+  outline: none;
+}
+.popup__item:last-of-type {
+  margin-bottom: 45px;
+}
+.popup__close-button {
+  width: 38px;
+  height: auto;
+  position: absolute;
+  top: -51px;
+  right: 0;
+}
+.popup__input-sumbit {
+  width: 100%;
+  max-width: 238px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+}
+.popup__sumbit-button {
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+
+  color: #fff;
+  background: #000000;
+  border-radius: 2px;
+  border: none;
+  width: 100%;
+  max-width: 238px;
+  padding: 14px 82px;
+
 }
