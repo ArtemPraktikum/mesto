@@ -4,7 +4,7 @@ let openButton = document.querySelector('.profile__edit-button')
 let closeButton = popup.querySelector('.popup__close-button')
 
 function togglePopup() {
-  popup.classList.toggle('popup_opened')
+  popup.classList.toggle('popup__opened')
 }
 
 openButton.addEventListener('click', togglePopup)

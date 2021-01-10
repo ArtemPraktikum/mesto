@@ -2,6 +2,10 @@
   background-image: url(../../../images/buttons/likebutton.svg);
   width: 22px;
   height: 19px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
 }
 .element__like-button:hover {
   opacity: 0.5;
