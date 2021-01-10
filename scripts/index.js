@@ -1,5 +1,6 @@
-let openButton = document.querySelector('.profile__edit-button')
+//Открытие\Закрытие попапа
 let popup = document.querySelector('.popup')
+let openButton = document.querySelector('.profile__edit-button')
 let closeButton = popup.querySelector('.popup__close-button')
 
 function togglePopup() {
@@ -7,7 +8,6 @@ function togglePopup() {
 }
 
 openButton.addEventListener('click', togglePopup)
-
 closeButton.addEventListener('click', togglePopup)
 
 popup.addEventListener('click', (event) => {
@@ -15,18 +15,13 @@ popup.addEventListener('click', (event) => {
     togglePopup()
   }
 })
-
+//Работа формы
 let form = popup.querySelector('.popup__container')
-
 
 form.addEventListener('submit', event => {
   event.preventDefault()
   let nameInput = form.querySelector('#name')
   let aboutInput = form.querySelector('#aboutme')
-
-
-  nameInput.getAttribute('value')
-  aboutInput.getAttribute('value')
 
   let profileName = document.querySelector('.profile__title')
   let profileAbout = document.querySelector('.profile__subtitle')
