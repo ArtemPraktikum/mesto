@@ -2,4 +2,4 @@
 ## Классная шапка у Кусто, однако!
 ---
 ### При верстке этого проекта был использован: флекс, грид, медиа запросы js(впервые).
-#### https://artempraktikum.github.io/russian-travel/
+#### https://artempraktikum.github.io/mesto/index.html
