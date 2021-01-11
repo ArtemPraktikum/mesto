@@ -7,6 +7,7 @@
   outline: none;
   background-size: contain;
   background-color: transparent;
+  padding: 0;
 }
 .profile__add-button:hover {
   opacity: 0.6;
@@ -14,10 +15,10 @@
 }
 @media screen and (min-width: 1280px) {
   .profile__add-button {
+    /* Не смог придумать метода как одно фоновое изоображение 1 к 3 растянуть на 1 к 5+- поэтому используются разные background-image */
     background-image: url(../../../images/buttons/AddButtonLarge.svg);
     margin-top: 0;
     width: 150px;
-    height: 50px;
     margin-left: 244px;
   }
 }

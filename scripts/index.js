@@ -1,14 +1,18 @@
-//Открытие\Закрытие попапа
 let popup = document.querySelector('.popup')
 let openButton = document.querySelector('.profile__edit-button')
 let closeButton = popup.querySelector('.popup__close-button')
 
-function togglePopup() {
-  popup.classList.toggle('popup__opened')
-}
+let form = popup.querySelector('.popup__container')
 
-openButton.addEventListener('click', togglePopup)
-closeButton.addEventListener('click', togglePopup)
+let nameInput = form.querySelector('#name')
+let aboutInput = form.querySelector('#aboutme')
+let profileName = document.querySelector('.profile__title')
+let profileAbout = document.querySelector('.profile__subtitle')
+
+//Открытие\Закрытие попапа
+function togglePopup() {
+  popup.classList.toggle('popup_opened')
+}
 
 popup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
@@ -16,18 +20,21 @@ popup.addEventListener('click', (event) => {
   }
 })
 //Работа формы
-let form = popup.querySelector('.popup__container')
-
-form.addEventListener('submit', event => {
-  event.preventDefault()
-  let nameInput = form.querySelector('#name')
-  let aboutInput = form.querySelector('#aboutme')
-
-  let profileName = document.querySelector('.profile__title')
-  let profileAbout = document.querySelector('.profile__subtitle')
-
+function handleSubmitForm(evt) {
+  evt.preventDefault();
   profileName.textContent = nameInput.value
   profileAbout.textContent = aboutInput.value
-
   togglePopup()
-})
+}
+
+
+function openCloseOver() {
+  nameInput.value = profileName.textContent
+  aboutInput.value = profileAbout.textContent
+  togglePopup()
+}
+
+openButton.addEventListener('click', openCloseOver)
+closeButton.addEventListener('click', togglePopup)
+
+form.addEventListener('submit', handleSubmitForm)

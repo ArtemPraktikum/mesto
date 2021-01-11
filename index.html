@@ -17,8 +17,10 @@
     <section class="profile">
       <img src="./images/Avatar.png" alt="Аватар профиля" class="profile__avatar">
       <div class="profile__info">
-        <h1 class="profile__title">Жак-Ив Кусто</h1>
-        <button type="button" class="profile__edit-button"></button>
+        <div class="profile__heading">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__edit-button"></button>
+        </div>
         <p class="profile__subtitle">Исследователь океана</p>
       </div>
       <button type="button" class="profile__add-button"></button>
@@ -80,19 +82,14 @@
   </footer>
 
   <section class="popup">
-    <form class="popup__container">
+    <form name="form" class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <fieldset class="popup__input">
-        <label for="name"></label>
-        <input type="text" class="popup__item" id="name" name="name" value="Жак-Ив Кусто" placeholder="Name" required>
-        <label for="aboutme"></label>
-        <input type="text" class="popup__item" id="aboutme" name="aboutme" value="Исследователь океана"
-          placeholder="About me" required>
+        <input type="text" class="popup__item" id="name" name="name" value="" placeholder="Name" required>
+        <input type="text" class="popup__item" id="aboutme" name="aboutme" value="" placeholder="About me" required>
       </fieldset>
 
-      <fieldset class="popup__input-sumbit">
-        <button type="submit" class="popup__sumbit-button">Сохранить</button>
-      </fieldset>
+      <button type="submit" class="popup__sumbit-button">Сохранить</button>
 
       <button type="button" class="popup__close-button"></button>
     </form>
