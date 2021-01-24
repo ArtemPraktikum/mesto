@@ -39,6 +39,13 @@ closeButton.addEventListener('click', togglePopup)
 
 form.addEventListener('submit', handleSubmitForm)
 
+
+
+
+
+
+
+
 // пишу код пятой проектной работы с этого места
 
 // 1. Шесть карточек «из коробки»
@@ -77,7 +84,7 @@ function renderItem(item) {
   const imageTemplate = preAddTemplate.querySelector('.element__image')
   preAddTemplate.querySelector('.element__title').innerText = item.name;
   imageTemplate.setAttribute('src', item.link)
-  imageTemplate.setAttribute('alt', `фото ${item.name}`)
+  imageTemplate.setAttribute('alt', `${item.name}`)
 
 	galery.prepend(preAddTemplate);
 }
@@ -131,11 +138,6 @@ function addCard(evt) {
   newCard()
   toggleAddPopup()
 }
-// newCard добавляет созданным вручную карточкам евенты удаления и лайка
-function newCard() {
-  document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
-  document.querySelector('.element__like-button').addEventListener('click', toggleLike)
-}
 
 addForm.addEventListener('submit', addCard)
 
@@ -164,6 +166,62 @@ trash.forEach((item) => {
 })
 
 // 6. Открытие попапа с картинкой
+
+const image = document.querySelectorAll('.element__image')
+const popupFullscreen = document.querySelector('.popup_fullscreen')
+
+function toggleFullScreen() {
+  popupFullscreen.classList.toggle('popup_opened')
+}
+image.forEach((item) => {
+  item.addEventListener('click', changeFullScreen)
+})
+
+// закрытие попока с картинкой
+
+const closeButtonFull = popupFullscreen.querySelector('.popup__close-button')
+
+closeButtonFull.addEventListener('click', toggleFullScreen)
+
+popupFullscreen.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    toggleFullScreen()
+  }
+})
+
+// показ нужной надписи и картинки в фуллскрин попапе
+
+
+// не смог понять как получить нужную подпись из поля описания карточки на которую сделан клик, поэтому получаю инфу из альта картинки а сам альт получает инфу из нужного поля
+
+function changeFullScreen(evt) {
+  const imageSrc = evt.target.closest('.element__image').getAttribute('src')
+  const FullImage = popupFullscreen.querySelector('.fullscreen__image')
+
+
+  const fullCaption = popupFullscreen.querySelector('.fullscreen__text')
+
+
+  FullImage.setAttribute('src', imageSrc)
+  fullCaption.textContent =evt.target.closest('.element__image').getAttribute('alt')
+
+  toggleFullScreen()
+}
+
+
+
+
+
+
+
+// newCard добавляет созданным вручную карточкам евенты
+function newCard() {
+  document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
+  document.querySelector('.element__like-button').addEventListener('click', toggleLike)
+  document.querySelector('.element__image').addEventListener('click', changeFullScreen)
+}
+
+
 
 
 

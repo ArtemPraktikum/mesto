@@ -30,3 +30,7 @@
 @import "../blocks/popup/__item/popup__item.css";
 @import "../blocks/popup/__close-button/popup__close-button.css";
 @import "../blocks/popup/__sumbit-button/popup__sumbit-button.css";
+@import "../blocks/popup/_fullscreen/popup_fullscreen.css";
+@import "../blocks/fullscreen/fullscreen.css";
+@import "../blocks/fullscreen/__image/fullscreen__image.css";
+@import "../blocks/fullscreen/__text/fullscreen__text.css";
