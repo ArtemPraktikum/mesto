@@ -43,9 +43,6 @@ form.addEventListener('submit', handleSubmitForm)
 
 
 
-
-
-
 // пишу код пятой проектной работы с этого места
 
 // 1. Шесть карточек «из коробки»
@@ -207,12 +204,6 @@ function changeFullScreen(evt) {
 
   toggleFullScreen()
 }
-
-
-
-
-
-
 
 // newCard добавляет созданным вручную карточкам евенты
 function newCard() {
