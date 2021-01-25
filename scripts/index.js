@@ -97,8 +97,8 @@ let addButton = document.querySelector('.profile__add-button')
 let closeButtonAdd = addPopup.querySelector('.popup__close-button')
 
 function openClear() {
-  let addNameInput = addForm.querySelector('#name')
-  let addAboutInput = addForm.querySelector('#aboutme')
+  let addNameInput = addForm.querySelector('#placeName')
+  let addAboutInput = addForm.querySelector('#link')
   addNameInput.value = null
   addAboutInput.value = null
   toggleAddPopup()
@@ -123,8 +123,8 @@ function addCard(evt) {
   evt.preventDefault();
   let addPopup = document.querySelector('.add-popup')
   let addForm = addPopup.querySelector('.popup__container')
-  let addNameInput = addForm.querySelector('#name')
-  let addAboutInput = addForm.querySelector('#aboutme')
+  let addNameInput = addForm.querySelector('#placeName')
+  let addAboutInput = addForm.querySelector('#link')
   const preAddTemplate = itemTemplate.cloneNode(true);
   const imageTemplate = preAddTemplate.querySelector('.element__image')
   preAddTemplate.querySelector('.element__title').textContent = addNameInput.value;
