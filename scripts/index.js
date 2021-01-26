@@ -1,25 +1,27 @@
-let popup = document.querySelector('.popup')
-let openButton = document.querySelector('.profile__edit-button')
-let closeButton = popup.querySelector('.popup__close-button')
+const popup = document.querySelector('.popup')
+const openButton = document.querySelector('.profile__edit-button')
+const closeButton = popup.querySelector('.popup__close-button')
 
-let form = popup.querySelector('.popup__container')
+const form = popup.querySelector('.popup__container')
 
-let nameInput = form.querySelector('#name')
-let aboutInput = form.querySelector('#aboutme')
-let profileName = document.querySelector('.profile__title')
-let profileAbout = document.querySelector('.profile__subtitle')
+const nameInput = form.querySelector('#name')
+const aboutInput = form.querySelector('#aboutme')
+const profileName = document.querySelector('.profile__title')
+const profileAbout = document.querySelector('.profile__subtitle')
 
-//Открытие\Закрытие попапа
+//функция Открыть\Закрыть попап о себе
 function togglePopup() {
   popup.classList.toggle('popup_opened')
 }
 
+//функция и слушатель закрыть попап о себе при клике вне попапа
 popup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     togglePopup()
   }
 })
-//Работа формы
+
+//функция отправить данные из инпутов попапа о себе в html разметку и togglePopup
 function handleSubmitForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value
@@ -27,26 +29,28 @@ function handleSubmitForm(evt) {
   togglePopup()
 }
 
-
-function openCloseOver() {
+//функция отправить данные из html разметки в инпуты попапа о себе и togglePopup
+function handleOpenCloseForm() {
   nameInput.value = profileName.textContent
   aboutInput.value = profileAbout.textContent
   togglePopup()
 }
 
-openButton.addEventListener('click', openCloseOver)
+// навесить слушатель на кнопку открыть попап о себе и handleOpenCloseForm
+openButton.addEventListener('click', handleOpenCloseForm)
+
+// навесить слушатель на кнопку закрыть попап о себе и togglePopup
 closeButton.addEventListener('click', togglePopup)
 
+// навесить слушатель на отправить форму и handleSubmitForm
 form.addEventListener('submit', handleSubmitForm)
-
-
-
 
 
 // пишу код пятой проектной работы с этого места
 
 // 1. Шесть карточек «из коробки»
 
+// масив исходных карточек
 const initialCards = [
   {
     name: 'Архыз',
@@ -73,13 +77,24 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 const itemTemplate = document.querySelector('.template').content
 const galery = document.querySelector('.elements')
+
+
+
+
+
+
+
+
+
 
 function renderItem(item) {
   const preAddTemplate = itemTemplate.cloneNode(true);
   const imageTemplate = preAddTemplate.querySelector('.element__image')
-  preAddTemplate.querySelector('.element__title').innerText = item.name;
+
+  preAddTemplate.querySelector('.element__title').textContent = item.name;
   imageTemplate.setAttribute('src', item.link)
   imageTemplate.setAttribute('alt', `${item.name}`)
 
@@ -90,57 +105,112 @@ function render() {
 }
 render()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 2. Форма добавления карточки
 
-let addPopup = document.querySelector('.add-popup')
-let addButton = document.querySelector('.profile__add-button')
-let closeButtonAdd = addPopup.querySelector('.popup__close-button')
+const addPopup = document.querySelector('.add-popup')
+const addButton = document.querySelector('.profile__add-button')
+const closeButtonAdd = addPopup.querySelector('.popup__close-button')
 
-function openClear() {
-  let addNameInput = addForm.querySelector('#placeName')
-  let addAboutInput = addForm.querySelector('#link')
+function toggleAddPopup() {
+  addPopup.classList.toggle('popup_opened')
+}
+
+function openClearAddPopup() {
+  const addNameInput = addForm.querySelector('#placeName')
+  const addAboutInput = addForm.querySelector('#link')
   addNameInput.value = null
   addAboutInput.value = null
   toggleAddPopup()
 }
 
-function toggleAddPopup() {
-  let addPopup = document.querySelector('.add-popup')
-  addPopup.classList.toggle('popup_opened')
-}
 addPopup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     toggleAddPopup()
   }
 })
-addButton.addEventListener('click', openClear)
+addButton.addEventListener('click', openClearAddPopup)
 closeButtonAdd.addEventListener('click', toggleAddPopup)
 
 // 3. Добавление карточки
-let addForm = addPopup.querySelector('.popup__container')
+
+// addListenersToNewCard добавляет созданным вручную карточкам евенты
+function addListenersToNewCard() {
+  document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
+  document.querySelector('.element__like-button').addEventListener('click', toggleLike)
+  document.querySelector('.element__image').addEventListener('click', changeFullScreen)
+}
+
+
+
+const addForm = addPopup.querySelector('.popup__container')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function addCard(evt) {
   evt.preventDefault();
-  let addPopup = document.querySelector('.add-popup')
-  let addForm = addPopup.querySelector('.popup__container')
-  let addNameInput = addForm.querySelector('#placeName')
-  let addAboutInput = addForm.querySelector('#link')
+  const addForm = addPopup.querySelector('.popup__container')
+  const addNameInput = addForm.querySelector('#placeName')
+  const addAboutInput = addForm.querySelector('#link')
+
   const preAddTemplate = itemTemplate.cloneNode(true);
   const imageTemplate = preAddTemplate.querySelector('.element__image')
+
   preAddTemplate.querySelector('.element__title').textContent = addNameInput.value;
   imageTemplate.setAttribute('src', addAboutInput.value)
   imageTemplate.setAttribute('alt', addNameInput.value)
 
   galery.prepend(preAddTemplate);
-  newCard()
+  addListenersToNewCard()
   toggleAddPopup()
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 addForm.addEventListener('submit', addCard)
 
 // 4. Лайк карточки
 
-let like = document.querySelectorAll('.element__like-button')
+const like = document.querySelectorAll('.element__like-button')
 
 function toggleLike(evt) {
   evt.target.classList.toggle('element__like-button_active')
@@ -152,7 +222,7 @@ like.forEach((item) => {
 
 // 5. Удаление карточки
 
-let trash = document.querySelectorAll('.element__trash-button')
+const trash = document.querySelectorAll('.element__trash-button')
 
 function handleDelete(evt) {
   evt.target.closest('.element').remove()
@@ -204,26 +274,3 @@ function changeFullScreen(evt) {
 
   toggleFullScreen()
 }
-
-// newCard добавляет созданным вручную карточкам евенты
-function newCard() {
-  document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
-  document.querySelector('.element__like-button').addEventListener('click', toggleLike)
-  document.querySelector('.element__image').addEventListener('click', changeFullScreen)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
