@@ -87,16 +87,43 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 // темплейт из html
 const itemTemplate = document.querySelector('.template').content
-
 // секция с карточками
 const galery = document.querySelector('.elements')
 
+// tests
+// функция создать карточку с неопределенными данными готовыми к заполнению
+function createCard(name, link) {
+  // создать клон карточки
+  const emptyCard = itemTemplate.cloneNode(true);
+  // выбрать в ней картинку
+  const imagePreAddTemplate = emptyCard.querySelector('.element__image')
+  // выбрать в ней заголовок
+  const titlePreAddTemplate = emptyCard.querySelector('.element__title')
+  //добавить в заголовок что-то
+  titlePreAddTemplate.textContent = name
+  // добавить в src картинки что-то
+  imagePreAddTemplate.setAttribute('src', link)
+  // добавить в alt картинки что-то
+  imagePreAddTemplate.setAttribute('alt', name)
+
+  // вернуть созданную карточку для последующего использования
+  return emptyCard
+}
 
 
+// функция вставить в html заполненную карточку
+function addOnGalery(item) {
+  galery.prepend(item)
+}
 
-
+// функция добавить в html карточки из массива
+initialCards.forEach(function fillCard(item) {
+const completedСardFromMassive = createCard(item.name, item.link)
+addOnGalery(completedСardFromMassive)
+})
 
 
 // функция общая работа с темплейтом
