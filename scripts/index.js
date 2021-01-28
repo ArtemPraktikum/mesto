@@ -1,19 +1,14 @@
 // попап о себе
 const popup = document.querySelector('.popup')
-
 // кнопка открыть
 const openButton = document.querySelector('.profile__edit-button')
-
 // кнопка закрыть
 const closeButton = popup.querySelector('.popup__close-button')
-
 // форма в попапе о себе
 const form = popup.querySelector('.popup__container')
-
 // инпуты в попапе о себе
 const nameInput = form.querySelector('#name')
 const aboutInput = form.querySelector('#aboutme')
-
 // поля в html имя и увлечения
 const profileName = document.querySelector('.profile__title')
 const profileAbout = document.querySelector('.profile__subtitle')
@@ -88,12 +83,56 @@ const initialCards = [
   }
 ];
 
+
+// попап фулскрин
+const popupFullscreen = document.querySelector('.popup_fullscreen')
+
+
+// не смог понять как получить нужную подпись из поля описания карточки на которую сделан клик, поэтому получаю инфу из альта картинки а сам альт получает инфу из нужного поля
+
+function changeFullScreen(evt) {
+  const imageSrc = evt.target.closest('.element__image').getAttribute('src')
+  const FullImage = popupFullscreen.querySelector('.fullscreen__image')
+
+  const fullCaption = popupFullscreen.querySelector('.fullscreen__text')
+
+  FullImage.setAttribute('src', imageSrc)
+  fullCaption.textContent = evt.target.closest('.element__image').getAttribute('alt')
+
+  toggleFullScreen()
+}
+
+// функция Открыть\Закрыть попап фулскрин
+function toggleFullScreen() {
+  popupFullscreen.classList.toggle('popup_opened')
+}
+// функция переключить цвета лайка
+function toggleLike(evt) {
+  evt.target.classList.toggle('element__like-button_active')
+}
+// функция удаления карточки
+function handleDelete(evt) {
+  evt.target.closest('.element').remove()
+}
+
 // темплейт из html
 const itemTemplate = document.querySelector('.template').content
 // секция с карточками
 const galery = document.querySelector('.elements')
+// попап карточка
+const addPopup = document.querySelector('.add-popup')
+// форма в попапе карточка
+const addForm = addPopup.querySelector('.popup__container')
+// инпуты в попапе карточка
+const addNameInput = addForm.querySelector('#placeName')
+const addAboutInput = addForm.querySelector('#link')
+// кнопка открыть попап карточка
+const addButton = document.querySelector('.profile__add-button')
+// кнопка закрыть попап карточка
+const closeButtonAdd = addPopup.querySelector('.popup__close-button')
+// кнопка закрыть попап фулскрин
+const closeButtonFull = popupFullscreen.querySelector('.popup__close-button')
 
-// tests
 // функция создать карточку с неопределенными данными готовыми к заполнению
 function createCard(name, link) {
   // создать клон карточки
@@ -102,12 +141,23 @@ function createCard(name, link) {
   const imagePreAddTemplate = emptyCard.querySelector('.element__image')
   // выбрать в ней заголовок
   const titlePreAddTemplate = emptyCard.querySelector('.element__title')
+  // выбрать в ней кнопку лайка
+  const likePreAddTemplate = emptyCard.querySelector('.element__like-button')
+  // выбрать в ней кнопку мусорка
+  const trashPreAddTemplate = emptyCard.querySelector('.element__trash-button')
+
   //добавить в заголовок что-то
   titlePreAddTemplate.textContent = name
   // добавить в src картинки что-то
   imagePreAddTemplate.setAttribute('src', link)
   // добавить в alt картинки что-то
   imagePreAddTemplate.setAttribute('alt', name)
+  // добавить кнопке лайка возможность переключать цвет при клике
+  likePreAddTemplate.addEventListener('click', toggleLike)
+  // добавить кнопке мусорка возможность удалить карточку в которой она находится
+  trashPreAddTemplate.addEventListener('click', handleDelete)
+  // добавить картинке возможность открыться побольше
+  imagePreAddTemplate.addEventListener('click', changeFullScreen)
 
   // вернуть созданную карточку для последующего использования
   return emptyCard
@@ -121,63 +171,14 @@ function addOnGalery(item) {
 
 // функция добавить в html карточки из массива
 initialCards.forEach(function fillCard(item) {
-const completedСardFromMassive = createCard(item.name, item.link)
-addOnGalery(completedСardFromMassive)
+let completedСard = createCard(item.name, item.link)
+addOnGalery(completedСard)
 })
-
-
-// функция общая работа с темплейтом
-function renderItem(item) {
-  // скопированный темплейт
-  const preAddTemplate = itemTemplate.cloneNode(true);
-
-  // картинка в скопир. темплейте
-  const imageTemplate = preAddTemplate.querySelector('.element__image')
-
-  // заменить в скопир. темплейте заголовок на имя из масива
-  preAddTemplate.querySelector('.element__title').textContent = item.name;
-
-  // заменить в imageTemplate срк на ссылку из масива
-  imageTemplate.setAttribute('src', item.link)
-
-  //заменить в imageTemplate альт на имя из масива
-  imageTemplate.setAttribute('alt', item.name)
-
-  // добавть в начало galery preAddTemplate
-	galery.prepend(preAddTemplate);
-}
-
-//функция выполнить renderItem на каждом елементе масива
-function render() {
-	initialCards.forEach(renderItem);
-}
-
-// вызвать функцию render
-render()
-
-
-// 2. Форма добавления карточки
-
-// попап карточка
-const addPopup = document.querySelector('.add-popup')
-
-// кнопка открыть попап карточка
-const addButton = document.querySelector('.profile__add-button')
-
-// кнопка закрыть попап карточка
-const closeButtonAdd = addPopup.querySelector('.popup__close-button')
 
 // функция Открыть\Закрыть попап карточка
 function toggleAddPopup() {
   addPopup.classList.toggle('popup_opened')
 }
-
-// форма в попапе карточка
-const addForm = addPopup.querySelector('.popup__container')
-
-// инпуты в попапе карточка
-const addNameInput = addForm.querySelector('#placeName')
-const addAboutInput = addForm.querySelector('#link')
 
 // функция очистить инпуты в попапе карточка и toggleAddPopup
 function openClearAddPopup() {
@@ -186,12 +187,16 @@ function openClearAddPopup() {
   toggleAddPopup()
 }
 
-// функция и слушатель закрыть попап карточка при клике вне формы
-addPopup.addEventListener('click', (event) => {
-  if (event.target === event.currentTarget) {
-    toggleAddPopup()
-  }
-})
+// функция добавить в html карточку с данными из формы
+function addCardFromForm(evt) {
+  evt.preventDefault();
+  let completedСard = createCard(addNameInput.value, addAboutInput.value)
+  addOnGalery(completedСard)
+  toggleAddPopup()
+}
+
+// навесить слушатель на отправить форму и addCardFromForm
+addForm.addEventListener('submit', addCardFromForm)
 
 // навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
 addButton.addEventListener('click', openClearAddPopup)
@@ -199,109 +204,18 @@ addButton.addEventListener('click', openClearAddPopup)
 // навесить слушатель на кнопку закрыть попап карточка и toggleAddPopup
 closeButtonAdd.addEventListener('click', toggleAddPopup)
 
-
-// 3. Добавление карточки
-
-// функция добавить карточкам евенты будет применена к созданым вручную карточкам так как у них их нет в отличии от уже созданых?
-function addListenersToNewCard() {
-  document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
-  document.querySelector('.element__like-button').addEventListener('click', toggleLike)
-  document.querySelector('.element__image').addEventListener('click', changeFullScreen)
-}
-
-// функция
-function addCard(evt) {
-  evt.preventDefault();
-
-  const preAddTemplate = itemTemplate.cloneNode(true);
-  const imageTemplate = preAddTemplate.querySelector('.element__image')
-
-  preAddTemplate.querySelector('.element__title').textContent = addNameInput.value;
-  imageTemplate.setAttribute('src', addAboutInput.value)
-  imageTemplate.setAttribute('alt', addNameInput.value)
-
-  galery.prepend(preAddTemplate);
-  addListenersToNewCard()
-  toggleAddPopup()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-addForm.addEventListener('submit', addCard)
-
-// 4. Лайк карточки
-
-const like = document.querySelectorAll('.element__like-button')
-
-function toggleLike(evt) {
-  evt.target.classList.toggle('element__like-button_active')
-}
-
-like.forEach((item) => {
-  item.addEventListener('click', toggleLike)
-})
-
-// 5. Удаление карточки
-
-const trash = document.querySelectorAll('.element__trash-button')
-
-function handleDelete(evt) {
-  evt.target.closest('.element').remove()
-}
-
-trash.forEach((item) => {
-  item.addEventListener('click', handleDelete)
-})
-
-// 6. Открытие попапа с картинкой
-
-const image = document.querySelectorAll('.element__image')
-const popupFullscreen = document.querySelector('.popup_fullscreen')
-
-function toggleFullScreen() {
-  popupFullscreen.classList.toggle('popup_opened')
-}
-image.forEach((item) => {
-  item.addEventListener('click', changeFullScreen)
-})
-
-// закрытие попока с картинкой
-
-const closeButtonFull = popupFullscreen.querySelector('.popup__close-button')
-
+// навесить слушатель на кнопку закрыть попап фулскрин и toggleFullScreen
 closeButtonFull.addEventListener('click', toggleFullScreen)
 
+// функция и слушатель закрыть попап карточка при клике вне формы
+addPopup.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    toggleAddPopup()
+  }
+})
+// функция и слушатель закрыть попап фулскрин при клике вне формы
 popupFullscreen.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     toggleFullScreen()
   }
 })
-
-// показ нужной надписи и картинки в фуллскрин попапе
-
-
-// не смог понять как получить нужную подпись из поля описания карточки на которую сделан клик, поэтому получаю инфу из альта картинки а сам альт получает инфу из нужного поля
-
-function changeFullScreen(evt) {
-  const imageSrc = evt.target.closest('.element__image').getAttribute('src')
-  const FullImage = popupFullscreen.querySelector('.fullscreen__image')
-
-
-  const fullCaption = popupFullscreen.querySelector('.fullscreen__text')
-
-
-  FullImage.setAttribute('src', imageSrc)
-  fullCaption.textContent =evt.target.closest('.element__image').getAttribute('alt')
-
-  toggleFullScreen()
-}
