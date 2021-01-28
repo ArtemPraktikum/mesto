@@ -1,27 +1,36 @@
+// попап о себе
 const popup = document.querySelector('.popup')
+
+// кнопка открыть
 const openButton = document.querySelector('.profile__edit-button')
+
+// кнопка закрыть
 const closeButton = popup.querySelector('.popup__close-button')
 
+// форма в попапе о себе
 const form = popup.querySelector('.popup__container')
 
+// инпуты в попапе о себе
 const nameInput = form.querySelector('#name')
 const aboutInput = form.querySelector('#aboutme')
+
+// поля в html имя и увлечения
 const profileName = document.querySelector('.profile__title')
 const profileAbout = document.querySelector('.profile__subtitle')
 
-//функция Открыть\Закрыть попап о себе
+// функция Открыть\Закрыть попап о себе
 function togglePopup() {
   popup.classList.toggle('popup_opened')
 }
 
-//функция и слушатель закрыть попап о себе при клике вне попапа
+// функция и слушатель закрыть попап о себе при клике вне формы
 popup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     togglePopup()
   }
 })
 
-//функция отправить данные из инпутов попапа о себе в html разметку и togglePopup
+// функция отправить данные из инпутов попапа о себе в html разметку и togglePopup
 function handleSubmitForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value
@@ -29,7 +38,7 @@ function handleSubmitForm(evt) {
   togglePopup()
 }
 
-//функция отправить данные из html разметки в инпуты попапа о себе и togglePopup
+// функция отправить данные из html разметки в инпуты попапа о себе и togglePopup
 function handleOpenCloseForm() {
   nameInput.value = profileName.textContent
   aboutInput.value = profileAbout.textContent
@@ -48,9 +57,10 @@ form.addEventListener('submit', handleSubmitForm)
 
 // пишу код пятой проектной работы с этого места
 
+
 // 1. Шесть карточек «из коробки»
 
-// масив исходных карточек
+// масив имена и ссылки
 const initialCards = [
   {
     name: 'Архыз',
@@ -77,8 +87,10 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+// темплейт из html
 const itemTemplate = document.querySelector('.template').content
+
+// секция с карточками
 const galery = document.querySelector('.elements')
 
 
@@ -87,100 +99,92 @@ const galery = document.querySelector('.elements')
 
 
 
-
-
-
+// функция общая работа с темплейтом
 function renderItem(item) {
+  // скопированный темплейт
   const preAddTemplate = itemTemplate.cloneNode(true);
+
+  // картинка в скопир. темплейте
   const imageTemplate = preAddTemplate.querySelector('.element__image')
 
+  // заменить в скопир. темплейте заголовок на имя из масива
   preAddTemplate.querySelector('.element__title').textContent = item.name;
-  imageTemplate.setAttribute('src', item.link)
-  imageTemplate.setAttribute('alt', `${item.name}`)
 
+  // заменить в imageTemplate срк на ссылку из масива
+  imageTemplate.setAttribute('src', item.link)
+
+  //заменить в imageTemplate альт на имя из масива
+  imageTemplate.setAttribute('alt', item.name)
+
+  // добавть в начало galery preAddTemplate
 	galery.prepend(preAddTemplate);
 }
+
+//функция выполнить renderItem на каждом елементе масива
 function render() {
 	initialCards.forEach(renderItem);
 }
+
+// вызвать функцию render
 render()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // 2. Форма добавления карточки
 
+// попап карточка
 const addPopup = document.querySelector('.add-popup')
+
+// кнопка открыть попап карточка
 const addButton = document.querySelector('.profile__add-button')
+
+// кнопка закрыть попап карточка
 const closeButtonAdd = addPopup.querySelector('.popup__close-button')
 
+// функция Открыть\Закрыть попап карточка
 function toggleAddPopup() {
   addPopup.classList.toggle('popup_opened')
 }
 
+// форма в попапе карточка
+const addForm = addPopup.querySelector('.popup__container')
+
+// инпуты в попапе карточка
+const addNameInput = addForm.querySelector('#placeName')
+const addAboutInput = addForm.querySelector('#link')
+
+// функция очистить инпуты в попапе карточка и toggleAddPopup
 function openClearAddPopup() {
-  const addNameInput = addForm.querySelector('#placeName')
-  const addAboutInput = addForm.querySelector('#link')
   addNameInput.value = null
   addAboutInput.value = null
   toggleAddPopup()
 }
 
+// функция и слушатель закрыть попап карточка при клике вне формы
 addPopup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     toggleAddPopup()
   }
 })
+
+// навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
 addButton.addEventListener('click', openClearAddPopup)
+
+// навесить слушатель на кнопку закрыть попап карточка и toggleAddPopup
 closeButtonAdd.addEventListener('click', toggleAddPopup)
+
 
 // 3. Добавление карточки
 
-// addListenersToNewCard добавляет созданным вручную карточкам евенты
+// функция добавить карточкам евенты будет применена к созданым вручную карточкам так как у них их нет в отличии от уже созданых?
 function addListenersToNewCard() {
   document.querySelector('.element__trash-button').addEventListener('click', handleDelete)
   document.querySelector('.element__like-button').addEventListener('click', toggleLike)
   document.querySelector('.element__image').addEventListener('click', changeFullScreen)
 }
 
-
-
-const addForm = addPopup.querySelector('.popup__container')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// функция
 function addCard(evt) {
   evt.preventDefault();
-  const addForm = addPopup.querySelector('.popup__container')
-  const addNameInput = addForm.querySelector('#placeName')
-  const addAboutInput = addForm.querySelector('#link')
 
   const preAddTemplate = itemTemplate.cloneNode(true);
   const imageTemplate = preAddTemplate.querySelector('.element__image')
