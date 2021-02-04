@@ -31,6 +31,27 @@ function handleOpenCloseForm() {
   nameInput.value = profileName.textContent
   aboutInput.value = profileAbout.textContent
   togglePopup()
+  document.addEventListener('keydown', RemoveClassOnEscPopup)
+
+}
+// функции закрыть попап о себе при нажатии esc
+function RemoveClassOnEscPopup(evt) {
+  if (evt.key === "Escape") {
+    popup.classList.remove('popup_opened')
+    document.removeEventListener('keydown', RemoveClassOnEscPopup)
+  }
+}
+function RemoveClassOnEscAddPopup(evt) {
+  if (evt.key === "Escape") {
+    addPopup.classList.remove('popup_opened')
+    document.removeEventListener('keydown', RemoveClassOnEscAddPopup)
+  }
+}
+function RemoveClassOnEscopupFullscreen(evt) {
+  if (evt.key === "Escape") {
+    popupFullscreen.classList.remove('popup_opened')
+    document.removeEventListener('keydown', RemoveClassOnEscopupFullscreen)
+  }
 }
 
 // навесить слушатель на кнопку открыть попап о себе и handleOpenCloseForm
@@ -93,6 +114,7 @@ function changeFullScreen(evt) {
   fullCaption.textContent = evt.target.closest('.element__image').getAttribute('alt')
 
   toggleFullScreen()
+  document.addEventListener('keydown', RemoveClassOnEscopupFullscreen)
 }
 
 // функция Открыть\Закрыть попап фулскрин
@@ -178,6 +200,7 @@ function openClearAddPopup() {
   addNameInput.value = null
   addAboutInput.value = null
   toggleAddPopup()
+  document.addEventListener('keydown', RemoveClassOnEscAddPopup)
 }
 
 // функция добавить в html карточку с данными из формы
@@ -217,16 +240,5 @@ addPopup.addEventListener('click', (event) => {
 popupFullscreen.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     toggleFullScreen()
-  }
-})
-
-// пишу код шестой проектной работы с этого места
-
-// функция и слушатель закрыть все попапы при нажатии esc
-document.addEventListener('keydown', function (evt) {
-  if (evt.key === "Escape") {
-    popup.classList.remove('popup_opened')
-    addPopup.classList.remove('popup_opened')
-    popupFullscreen.classList.remove('popup_opened')
   }
 })
