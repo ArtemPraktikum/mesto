@@ -17,3 +17,6 @@
     margin-bottom: 48px;
   }
 }
+.popup__item:invalid {
+  border-bottom: 1px solid #FF0000;
+}

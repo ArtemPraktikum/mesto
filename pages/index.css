@@ -27,9 +27,13 @@
 @import "../blocks/popup/_opened/popup_opened.css";
 @import "../blocks/popup/__title/popup__title.css";
 @import "../blocks/popup/__input/popup__input.css";
+@import "../blocks/popup/__field/popup__field.css";
 @import "../blocks/popup/__item/popup__item.css";
+@import "../blocks/popup/__item-error/popup__item-error.css";
+@import "../blocks/popup/__item-error/_active/popup__item-error_active.css";
 @import "../blocks/popup/__close-button/popup__close-button.css";
 @import "../blocks/popup/__sumbit-button/popup__sumbit-button.css";
+@import "../blocks/popup/__sumbit-button/_inactive/popup__sumbit-button_inactive.css";
 @import "../blocks/popup/_fullscreen/popup_fullscreen.css";
 @import "../blocks/fullscreen/fullscreen.css";
 @import "../blocks/fullscreen/__image/fullscreen__image.css";

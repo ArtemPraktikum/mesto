@@ -18,13 +18,6 @@ function togglePopup() {
   popup.classList.toggle('popup_opened')
 }
 
-// функция и слушатель закрыть попап о себе при клике вне формы
-popup.addEventListener('click', (event) => {
-  if (event.target === event.currentTarget) {
-    togglePopup()
-  }
-})
-
 // функция отправить данные из инпутов попапа о себе в html разметку и togglePopup
 function handleSubmitForm(evt) {
   evt.preventDefault();
@@ -207,6 +200,13 @@ closeButtonAdd.addEventListener('click', toggleAddPopup)
 // навесить слушатель на кнопку закрыть попап фулскрин и toggleFullScreen
 closeButtonFull.addEventListener('click', toggleFullScreen)
 
+// функция и слушатель закрыть попап о себе при клике вне формы
+popup.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    togglePopup()
+  }
+})
+
 // функция и слушатель закрыть попап карточка при клике вне формы
 addPopup.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
@@ -217,5 +217,16 @@ addPopup.addEventListener('click', (event) => {
 popupFullscreen.addEventListener('click', (event) => {
   if (event.target === event.currentTarget) {
     toggleFullScreen()
+  }
+})
+
+// пишу код шестой проектной работы с этого места
+
+// функция и слушатель закрыть все попапы при нажатии esc
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === "Escape") {
+    popup.classList.remove('popup_opened')
+    addPopup.classList.remove('popup_opened')
+    popupFullscreen.classList.remove('popup_opened')
   }
 })
