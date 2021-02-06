@@ -45,21 +45,11 @@ function toggleButtonState(inputList, buttonElement, buttonElementOffClass) {
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
     buttonElement.classList.add(buttonElementOffClass)
-    // запретить отправлять форму
-    form.removeEventListener('submit', handleSubmitForm)
-    addForm.removeEventListener('submit', addCardFromForm)
-    form.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    })
-    addForm.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    })
+    buttonElement.disabled = true
   } else {
     // иначе сделай кнопку активной
     buttonElement.classList.remove(buttonElementOffClass)
-    // разрешить отправку формы
-    form.addEventListener('submit', handleSubmitForm)
-    addForm.addEventListener('submit', addCardFromForm)
+    buttonElement.disabled = false
   }
 }
 
