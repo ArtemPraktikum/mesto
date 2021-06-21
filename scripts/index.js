@@ -1,33 +1,51 @@
-// попап о себе
+// попап 'о себе'
 const profilePopup = document.querySelector('.profile-popup')
-// кнопка открыть
+// кнопка открыть попап 'о себе'
 const openButton = document.querySelector('.profile__edit-button')
-// форма в попапе о себе
+// форма в попапе 'о себе'
 const form = profilePopup.querySelector('.popup__container')
-// инпуты в попапе о себе
+// инпуты в форме в попапе 'о себе': Имя, обо мне.
 const nameInput = form.querySelector('#name')
 const aboutInput = form.querySelector('#aboutme')
-// поля в html имя и увлечения
+// заголовок и подзаголовок в html: Имя, обо мне.
 const profileName = document.querySelector('.profile__title')
 const profileAbout = document.querySelector('.profile__subtitle')
-// попап фулскрин
+
+// попап 'фулскрин'
 const popupFullScreen = document.querySelector('.popup_fullscreen')
-// попап карточка
+
+// попап 'карточка'
 const addPopup = document.querySelector('.add-popup')
 
 // функция Открыть\Закрыть любой попап
 function togglePopup(popup) {
+  // открыть/закрыть попап
   popup.classList.toggle('popup_opened')
 
+  // если попап открылся
   if (popup.classList.contains('popup_opened')) {
+    //добавить возможность закрыть его нажав esc
     document.addEventListener('keydown', closeByEscape);
   }
+  // если попап закрылся
   else {
+    // убрать возможность закрыть его нажав esc
     document.removeEventListener('keydown', closeByEscape);
   }
 }
 
-// функция Открыть\Закрыть попап о себе
+// функции закрыть любой попап при нажатии esc
+function closeByEscape(evt) {
+  // если нажать esc
+  if (evt.key === 'Escape') {
+    // найти открытый попап
+    const openedPopup = document.querySelector('.popup_opened')
+    // закрыть открытый попап
+    togglePopup(openedPopup);
+  }
+}
+
+// функцию Открыть\Закрыть попап о себе
 function toggleProfilePopup() {
   togglePopup(profilePopup)
 }
@@ -40,13 +58,6 @@ function toggleAddPopup() {
   togglePopup(addPopup)
 }
 
-// функции закрыть любой попап при нажатии esc
-function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened')
-    togglePopup(openedPopup);
-  }
-}
 
 
 // функция отправить данные из инпутов попапа о себе в html разметку и toggleProfilePopup
@@ -102,7 +113,6 @@ const initialCards = [
   }
 ];
 
-// не смог понять как получить нужную подпись из поля описания карточки на которую сделан клик, поэтому получаю инфу из альта картинки а сам альт получает инфу из нужного поля
 
 const fullImage = popupFullScreen.querySelector('.fullscreen__image')
 
