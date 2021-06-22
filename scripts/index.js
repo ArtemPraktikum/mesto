@@ -28,8 +28,7 @@ const addAboutInput = addForm.querySelector('#link')
 // кнопка открыть попап 'карточка'
 const addButton = document.querySelector('.profile__add-button')
 
-// темплейт из html
-const itemTemplate = document.querySelector('.template').content
+
 
 // секция с карточками
 const galery = document.querySelector('.elements')
@@ -150,6 +149,8 @@ function handleDelete(evt) {
 
 // функция создать карточку с неопределенными данными готовыми к заполнению
 function createCard(name, link) {
+  // темплейт из html
+  const itemTemplate = document.querySelector('.template').content
   // создать клон карточки
   const emptyCard = itemTemplate.cloneNode(true);
   // выбрать в ней картинку
