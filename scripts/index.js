@@ -1,3 +1,5 @@
+import classCard from './Card.js'
+
 // попап 'о себе'
 const profilePopup = document.querySelector('.profile-popup')
 // форма в попапе 'о себе'
