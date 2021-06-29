@@ -1,4 +1,7 @@
-import classCard from './Card.js'
+import Card from './Card.js'
+// темплейт из html
+const itemTemplate = document.querySelector('.template').content
+
 
 // попап 'о себе'
 const profilePopup = document.querySelector('.profile-popup')
@@ -151,8 +154,7 @@ function handleDelete(evt) {
 
 // функция создать карточку с неопределенными данными готовыми к заполнению
 function createCard(name, link) {
-  // темплейт из html
-  const itemTemplate = document.querySelector('.template').content
+
   // создать клон карточки
   const emptyCard = itemTemplate.cloneNode(true);
   // выбрать в ней картинку
@@ -236,3 +238,8 @@ popups.forEach((popup) => {
         }
     })
 })
+
+
+const fillCard = new Card('kek', 'https://images.unsplash.com/photo-1611418608107-2dbb3d5d4660?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=925&q=80', itemTemplate)
+
+addOnGalery(fillCard.getCard())
