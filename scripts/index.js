@@ -2,7 +2,6 @@ import Card from './Card.js'
 // темплейт из html
 const itemTemplate = document.querySelector('.template').content
 
-
 // попап 'о себе'
 const profilePopup = document.querySelector('.profile-popup')
 // форма в попапе 'о себе'
@@ -16,12 +15,6 @@ const profileAbout = document.querySelector('.profile__subtitle')
 // кнопка открыть попап 'о себе'
 const openButton = document.querySelector('.profile__edit-button')
 
-// попап 'фулскрин'
-const popupFullScreen = document.querySelector('.popup_fullscreen')
-// картинка в попапе 'фулскрин'
-const fullImage = popupFullScreen.querySelector('.fullscreen__image')
-// текст в попапе 'фулскрин'
-const fullCaption = popupFullScreen.querySelector('.fullscreen__text')
 
 // попап 'карточка'
 const addPopup = document.querySelector('.add-popup')
@@ -93,6 +86,22 @@ function closeByEscape(evt) {
     togglePopup(openedPopup);
   }
 }
+// все попапы
+const popups = document.querySelectorAll('.popup')
+// выбрать каждый попап
+popups.forEach((popup) => {
+    // добавить каждому попапу листенер при клике
+    popup.addEventListener('click', (evt) => {
+        // если попап открыт при клике вне формы закрыть его
+        if (evt.target.classList.contains('popup_opened')) {
+            togglePopup(popup)
+        }
+        // закрыть попап при клике по крестику
+        if (evt.target.classList.contains('popup__close-button')) {
+          togglePopup(popup)
+        }
+    })
+})
 
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'
 function handleSubmitForm(evt) {
@@ -122,79 +131,14 @@ openButton.addEventListener('click', handleOpenCloseForm)
 // навесить слушатель на отправить форму и handleSubmitForm
 form.addEventListener('submit', handleSubmitForm)
 
-// Вся работа с попапом 'о себе' велась до этого момента
-
-
-
-
-
-
-// функция октрыть попап 'фулскрин' с названием и ссылкой
-function changeFullScreen(name, link) {
-  // задать ссылку на изображение
-  fullImage.setAttribute('src', link)
-  // установить текст в название
-  fullCaption.textContent = name
-  // открыть попап 'фулскрин'
-  togglePopup(popupFullScreen)
-}
-
-// функция изменить цвета лайка
-function toggleLike(evt) {
-  // при клике на кнопку лайка переключить цвет
-  evt.target.classList.toggle('element__like-button_active')
-}
-// функция удалить карточку
-function handleDelete(evt) {
-  // при клике на кнопку 'мусорка' удалить карточку
-  evt.target.closest('.element').remove()
-}
-
-
-
-// функция создать карточку с неопределенными данными готовыми к заполнению
-function createCard(name, link) {
-
-  // создать клон карточки
-  const emptyCard = itemTemplate.cloneNode(true);
-  // выбрать в ней картинку
-  const imagePreAddTemplate = emptyCard.querySelector('.element__image')
-  // выбрать в ней заголовок
-  const titlePreAddTemplate = emptyCard.querySelector('.element__title')
-  // выбрать в ней кнопку лайка
-  const likePreAddTemplate = emptyCard.querySelector('.element__like-button')
-  // выбрать в ней кнопку мусорка
-  const trashPreAddTemplate = emptyCard.querySelector('.element__trash-button')
-
-  //добавить в заголовок название
-  titlePreAddTemplate.textContent = name
-  // добавить в src картинки ссылку
-  imagePreAddTemplate.setAttribute('src', link)
-  // добавить в alt картинки название
-  imagePreAddTemplate.setAttribute('alt', name)
-  // добавить кнопке лайка возможность переключать цвет при клике
-  likePreAddTemplate.addEventListener('click', toggleLike)
-  // добавить кнопке мусорка возможность удалить карточку в которой она находится
-  trashPreAddTemplate.addEventListener('click', handleDelete)
-  // добавить картинке возможность открыться побольше
-  imagePreAddTemplate.addEventListener('click', () => {
-    changeFullScreen(name, link)
-  })
-
-  // вернуть созданную карточку для последующего использования
-  return emptyCard
-}
-
-
 // функция вставить в html заполненную карточку
 function addOnGalery(item) {
   galery.prepend(item)
 }
-
 // функция добавить в html карточки из массива
 initialCards.forEach(function fillCard(item) {
-const completedСard = createCard(item.name, item.link)
-addOnGalery(completedСard)
+const completedСard = new Card(item.name, item.link, itemTemplate)
+addOnGalery(completedСard.getCard())
 })
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
@@ -209,9 +153,9 @@ function addCardFromForm(evt) {
   // отмена действия по умолчанию у submit
   evt.preventDefault();
   // создать наполненную карточку
-  const completedСard = createCard(addNameInput.value, addAboutInput.value)
+  const completedСard = new Card(addNameInput.value, addAboutInput.value, itemTemplate)
   // добавить в html
-  addOnGalery(completedСard)
+  addOnGalery(completedСard.getCard())
   // закрыть попап 'карточка'
   togglePopup(addPopup)
 }
@@ -222,24 +166,4 @@ addForm.addEventListener('submit', addCardFromForm)
 // навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
 addButton.addEventListener('click', openClearAddPopup)
 
-// все попапы
-const popups = document.querySelectorAll('.popup')
-// выбрать каждый попап
-popups.forEach((popup) => {
-    // добавить каждому попапу листенер при клике
-    popup.addEventListener('click', (evt) => {
-        // если попап открыт при клике вне формы закрыть его
-        if (evt.target.classList.contains('popup_opened')) {
-            togglePopup(popup)
-        }
-        // закрыть попап при клике по крестику
-        if (evt.target.classList.contains('popup__close-button')) {
-          togglePopup(popup)
-        }
-    })
-})
 
-
-const fillCard = new Card('kek', 'https://images.unsplash.com/photo-1611418608107-2dbb3d5d4660?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=925&q=80', itemTemplate)
-
-addOnGalery(fillCard.getCard())
