@@ -80,7 +80,7 @@ function enableValidation(obj) {
   const formList = Array.from(document.querySelectorAll(obj.formSelector))
   // Перебрать полученную коллекцию
   formList.forEach((oneForm) => {
-    // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
+    // Для каждой формы вызовем setEventListeners, передав элемент формы
     setEventListeners(oneForm, obj.inputSelector, obj.submitButtonSelector, obj.inactiveButtonClass, obj.errorClass)
   })
 }

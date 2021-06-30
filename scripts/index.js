@@ -1,4 +1,5 @@
 import Card from './Card.js'
+import FormValidator from './FormValidator.js'
 // темплейт из html
 const itemTemplate = document.querySelector('.template').content
 
