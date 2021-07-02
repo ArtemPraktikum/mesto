@@ -33,8 +33,7 @@ const addButton = document.querySelector('.profile__add-button')
 const galery = document.querySelector('.elements')
 
 //Шесть карточек «из коробки»
-const initialCards = [
-  {
+const initialCards = [{
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
@@ -91,17 +90,17 @@ function closeByEscape(evt) {
 const popups = document.querySelectorAll('.popup')
 // выбрать каждый попап
 popups.forEach((popup) => {
-    // добавить каждому попапу листенер при клике
-    popup.addEventListener('click', (evt) => {
-        // если попап открыт при клике вне формы закрыть его
-        if (evt.target.classList.contains('popup_opened')) {
-            togglePopup(popup)
-        }
-        // закрыть попап при клике по крестику
-        if (evt.target.classList.contains('popup__close-button')) {
-          togglePopup(popup)
-        }
-    })
+  // добавить каждому попапу листенер при клике
+  popup.addEventListener('click', (evt) => {
+    // если попап открыт при клике вне формы закрыть его
+    if (evt.target.classList.contains('popup_opened')) {
+      togglePopup(popup)
+    }
+    // закрыть попап при клике по крестику
+    if (evt.target.classList.contains('popup__close-button')) {
+      togglePopup(popup)
+    }
+  })
 })
 
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'
@@ -138,8 +137,8 @@ function addOnGalery(item) {
 }
 // функция добавить в html карточки из массива
 initialCards.forEach(function fillCard(item) {
-const completedСard = new Card(item.name, item.link, itemTemplate)
-addOnGalery(completedСard.getCard())
+  const completedСard = new Card(item.name, item.link, itemTemplate)
+  addOnGalery(completedСard.getCard())
 })
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
@@ -167,4 +166,21 @@ addForm.addEventListener('submit', addCardFromForm)
 // навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
 addButton.addEventListener('click', openClearAddPopup)
 
+const validateProfilePopup = new FormValidator({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__item',
+  submitButtonSelector: '.popup__sumbit-button',
+  inactiveButtonClass: 'popup__sumbit-button_inactive',
+  errorClass: 'popup__item-error_active'
+}, profilePopup)
 
+const validateAddPopup = new FormValidator({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__item',
+  submitButtonSelector: '.popup__sumbit-button',
+  inactiveButtonClass: 'popup__sumbit-button_inactive',
+  errorClass: 'popup__item-error_active'
+}, addPopup)
+
+validateProfilePopup.enableValidation()
+validateAddPopup.enableValidation()

@@ -1,105 +1,75 @@
 export default class FormValidator {
-  #formSelector
-  #inputSelector
-  #submitButtonSelector
-  #inactiveButtonClass
-  #errorClass
-  #popupSelector
-  #inputList
-  #buttonElement
-  #errorElement
-  #form
-  constructor({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, errorClass}, popupSelector) {
-    this.#formSelector  = formSelector
-    this.#inputSelector = inputSelector
-    this.#submitButtonSelector = submitButtonSelector
-    this.#inactiveButtonClass = inactiveButtonClass
-    this.#errorClass = errorClass
-    this.#popupSelector = popupSelector
+  constructor({
+    formSelector,
+    inputSelector,
+    submitButtonSelector,
+    inactiveButtonClass,
+    errorClass
+  }, popupSelector) {
+    this._formSelector = formSelector
+    this._inputSelector = inputSelector
+    this._submitButtonSelector = submitButtonSelector
+    this._inactiveButtonClass = inactiveButtonClass
+    this._errorClass = errorClass
+    this._popupSelector = popupSelector
 
   }
 
 
 
-  #showInputError = (oneInput) => {
-    this.#errorElement = this.#form.querySelector(`.${oneInput.id}-error`)
-    this.#errorElement.textContent = oneInput.validationMessage
-    this.#errorElement.classList.add(this.#errorClass)
+  _showInputError = (oneInput) => {
+    this._errorElement = this._form.querySelector(`.${oneInput.id}-error`)
+    this._errorElement.textContent = oneInput.validationMessage
+    this._errorElement.classList.add(this._errorClass)
   }
 
-  #hideInputError = (oneInput) => {
-    this.#errorElement = this.#form.querySelector(`.${oneInput.id}-error`)
-    this.#errorElement.classList.remove(this.#errorClass)
-    this.#errorElement.textContent = ''
+  _hideInputError = (oneInput) => {
+    this._errorElement = this._form.querySelector(`.${oneInput.id}-error`)
+    this._errorElement.classList.remove(this._errorClass)
+    this._errorElement.textContent = ''
   }
 
-  #isValid = (oneInput) => {
+  _isValid = (oneInput) => {
     if (!oneInput.validity.valid) {
-      this.#showInputError(oneInput)
+      this._showInputError(oneInput)
     } else {
-      this.#hideInputError(oneInput)
+      this._hideInputError(oneInput)
     }
   }
 
-  #hasInvalidInput = () => {
-    return this.#inputList.some((inputElement) => {
+  _hasInvalidInput = () => {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid
     })
   }
 
-  #toggleButtonState = () => {
-    if (this.#hasInvalidInput()) {
-      // сделай кнопку неактивной
-      this.#buttonElement.classList.add(this.#inactiveButtonClass)
-      this.#buttonElement.disabled = true
+  _toggleButtonState = () => {
+    if (this._hasInvalidInput()) {
+      this._buttonElement.classList.add(this._inactiveButtonClass)
+      this._buttonElement.disabled = true
     } else {
-      // иначе сделай кнопку активной
-      this.#buttonElement.classList.remove(this.#inactiveButtonClass)
-      this.#buttonElement.disabled = false
+      this._buttonElement.classList.remove(this._inactiveButtonClass)
+      this._buttonElement.disabled = false
     }
   }
 
-  #setEventListeners = () => {
-    this.#inputList = Array.from(this.#form.querySelectorAll(this.#inputSelector))
-    this.#buttonElement = this.#form.querySelector(this.#submitButtonSelector)
+  _setEventListeners = () => {
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
+    this._buttonElement = this._form.querySelector(this._submitButtonSelector)
 
-    this.#toggleButtonState()
+    this._toggleButtonState()
 
-    this.#inputList.forEach((oneInput) => {
+    this._inputList.forEach((oneInput) => {
       oneInput.addEventListener('input', () => {
-        this.#isValid(oneInput)
+        this._isValid(oneInput)
 
-        this.#toggleButtonState()
+        this._toggleButtonState()
       })
     })
   }
 
   enableValidation() {
-    this.#form = this.#popupSelector.querySelector(this.#formSelector)
-    this.#setEventListeners()
+    this._form = this._popupSelector.querySelector(this._formSelector)
+    this._setEventListeners()
   }
 }
-
-
-
-
-
-
-const profilePopupw = document.querySelector('.profile-popup')
-const profilePopupq = document.querySelector('.add-popup')
-const validate = new FormValidator({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__sumbit-button',
-  inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
-}, profilePopupq)
-validate.enableValidation()
-const valk = new FormValidator({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__sumbit-button',
-  inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
-}, profilePopupw)
-.enableValidation()
