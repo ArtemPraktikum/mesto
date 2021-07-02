@@ -86,12 +86,12 @@ function enableValidation(obj) {
 }
 
 // Вызовем функцию
-enableValidation({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__sumbit-button',
-  inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
-})
+// enableValidation({
+//   formSelector: '.popup__container',
+//   inputSelector: '.popup__item',
+//   submitButtonSelector: '.popup__sumbit-button',
+//   inactiveButtonClass: 'popup__sumbit-button_inactive',
+//   errorClass: 'popup__item-error_active'
+// })
 
 // роль  inputErrorClass: 'popup__input_type_error' у меня выполняет псевдокласс :invalid на классе всех инпутах
