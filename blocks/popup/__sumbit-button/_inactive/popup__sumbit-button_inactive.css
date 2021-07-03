@@ -4,3 +4,7 @@
   border: 1px solid #000000;
   background: #fff;
 }
+.popup__sumbit-button_inactive:hover {
+  opacity: 0.2;
+  cursor: default;
+}
