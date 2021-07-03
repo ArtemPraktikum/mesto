@@ -1,15 +1,13 @@
 import Card from './Card.js'
 import FormValidator from './FormValidator.js'
-// темплейт из html
-const itemTemplate = document.querySelector('.template').content
 
 // попап 'о себе'
 const profilePopup = document.querySelector('.profile-popup')
 // форма в попапе 'о себе'
-const form = profilePopup.querySelector('.popup__container')
+const formProfile = profilePopup.querySelector('.popup__container')
 // инпуты в форме в попапе 'о себе': Имя, обо мне.
-const nameInput = form.querySelector('#name')
-const aboutInput = form.querySelector('#aboutme')
+const nameInput = formProfile.querySelector('#name')
+const aboutInput = formProfile.querySelector('#aboutme')
 // заголовок и подзаголовок в html: Имя, обо мне.
 const profileName = document.querySelector('.profile__title')
 const profileAbout = document.querySelector('.profile__subtitle')
@@ -20,10 +18,10 @@ const openButton = document.querySelector('.profile__edit-button')
 // попап 'карточка'
 const addPopup = document.querySelector('.add-popup')
 // форма в попапе 'карточка'
-const addForm = addPopup.querySelector('.popup__container')
+const formAddCard = addPopup.querySelector('.popup__container')
 // инпуты в попапе 'карточка': Название, ссылка.
-const addNameInput = addForm.querySelector('#placeName')
-const addAboutInput = addForm.querySelector('#link')
+const addNameInput = formAddCard.querySelector('#placeName')
+const addAboutInput = formAddCard.querySelector('#link')
 // кнопка открыть попап 'карточка'
 const addButton = document.querySelector('.profile__add-button')
 
@@ -60,7 +58,7 @@ const initialCards = [{
 ];
 
 // функция Открыть\Закрыть любой попап
-function togglePopup(popup) {
+export function togglePopup(popup) {
   // открыть/закрыть попап
   popup.classList.toggle('popup_opened')
 
@@ -91,7 +89,7 @@ const popups = document.querySelectorAll('.popup')
 // выбрать каждый попап
 popups.forEach((popup) => {
   // добавить каждому попапу листенер при клике
-  popup.addEventListener('click', (evt) => {
+  popup.addEventListener('mousedown', (evt) => {
     // если попап открыт при клике вне формы закрыть его
     if (evt.target.classList.contains('popup_opened')) {
       togglePopup(popup)
@@ -129,7 +127,7 @@ function handleOpenCloseForm() {
 openButton.addEventListener('click', handleOpenCloseForm)
 
 // навесить слушатель на отправить форму и handleSubmitForm
-form.addEventListener('submit', handleSubmitForm)
+formProfile.addEventListener('submit', handleSubmitForm)
 
 // функция вставить в html заполненную карточку
 function addOnGalery(item) {
@@ -137,15 +135,15 @@ function addOnGalery(item) {
 }
 // функция добавить в html карточки из массива
 initialCards.forEach(function fillCard(item) {
-  const completedСard = new Card(item.name, item.link, itemTemplate)
+  const completedСard = new Card(item.name, item.link, '.template')
   addOnGalery(completedСard.getCard())
 })
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openClearAddPopup() {
-  addNameInput.value = null
-  addAboutInput.value = null
+  formAddCard.reset()
   togglePopup(addPopup)
+  validateAddPopup.toggleButtonState()
 }
 
 // функция добавить в html карточку с данными из инпутов попапа 'карточка'
@@ -153,7 +151,7 @@ function addCardFromForm(evt) {
   // отмена действия по умолчанию у submit
   evt.preventDefault();
   // создать наполненную карточку
-  const completedСard = new Card(addNameInput.value, addAboutInput.value, itemTemplate)
+  const completedСard = new Card(addNameInput.value, addAboutInput.value, '.template')
   // добавить в html
   addOnGalery(completedСard.getCard())
   // закрыть попап 'карточка'
@@ -161,26 +159,30 @@ function addCardFromForm(evt) {
 }
 
 // навесить слушатель на отправить форму и addCardFromForm
-addForm.addEventListener('submit', addCardFromForm)
+formAddCard.addEventListener('submit', addCardFromForm)
 
 // навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
 addButton.addEventListener('click', openClearAddPopup)
 
-const validateProfilePopup = new FormValidator({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__sumbit-button',
-  inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
-}, profilePopup)
 
-const validateAddPopup = new FormValidator({
-  formSelector: '.popup__container',
+
+
+
+
+
+
+
+
+const FormConfig = {
   inputSelector: '.popup__item',
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
   errorClass: 'popup__item-error_active'
-}, addPopup)
+}
+
+const validateProfilePopup = new FormValidator(FormConfig, formProfile)
+
+const validateAddPopup = new FormValidator(FormConfig, formAddCard)
 
 validateProfilePopup.enableValidation()
 validateAddPopup.enableValidation()
