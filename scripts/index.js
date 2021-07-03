@@ -173,16 +173,18 @@ addButton.addEventListener('click', openClearAddPopup)
 
 
 
-const FormConfig = {
+const formConfig = {
   inputSelector: '.popup__item',
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
   errorClass: 'popup__item-error_active'
 }
 
-const validateProfilePopup = new FormValidator(FormConfig, formProfile)
+const validateProfilePopup = new FormValidator(formConfig, formProfile)
 
-const validateAddPopup = new FormValidator(FormConfig, formAddCard)
+const validateAddPopup = new FormValidator(formConfig, formAddCard)
 
 validateProfilePopup.enableValidation()
 validateAddPopup.enableValidation()
+
+//Спасибо за ревью уважаемая Анна<3!

@@ -4,24 +4,24 @@ export default class FormValidator {
     submitButtonSelector,
     inactiveButtonClass,
     errorClass
-  }, formSelector) {
-    this._formSelector = formSelector
+  }, formElement) {
     this._inputSelector = inputSelector
     this._submitButtonSelector = submitButtonSelector
     this._inactiveButtonClass = inactiveButtonClass
     this._errorClass = errorClass
+    this._formElement = formElement
   }
 
 
 
   _showInputError = (oneInput) => {
-    this._errorElement = this._formSelector.querySelector(`.${oneInput.id}-error`)
+    this._errorElement = this._formElement.querySelector(`.${oneInput.id}-error`)
     this._errorElement.textContent = oneInput.validationMessage
     this._errorElement.classList.add(this._errorClass)
   }
 
   _hideInputError = (oneInput) => {
-    this._errorElement = this._formSelector.querySelector(`.${oneInput.id}-error`)
+    this._errorElement = this._formElement.querySelector(`.${oneInput.id}-error`)
     this._errorElement.classList.remove(this._errorClass)
     this._errorElement.textContent = ''
   }
@@ -51,8 +51,8 @@ export default class FormValidator {
   }
 
   _setEventListeners = () => {
-    this._inputList = Array.from(this._formSelector.querySelectorAll(this._inputSelector))
-    this._buttonElement = this._formSelector.querySelector(this._submitButtonSelector)
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector))
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
 
     this.toggleButtonState()
 
