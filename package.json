@@ -1,0 +1,19 @@
+{
+  "name": "yandex_praktikum",
+  "version": "0.0.1",
+  "description": "--- ### При верстке этого проекта был использован: флекс, грид, медиа запросы, js(впервые), много функций и переменных. #### https://artempraktikum.github.io/mesto/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtemPraktikum/mesto.git"
+  },
+  "author": "Artem Velmozhin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArtemPraktikum/mesto/issues"
+  },
+  "homepage": "https://github.com/ArtemPraktikum/mesto#readme"
+}
