@@ -21,6 +21,7 @@ export const addAboutInput = formAddCard.querySelector('#link')
 export const addButton = document.querySelector('.profile__add-button')
 // секция с карточками
 export const galery = document.querySelector('.elements')
+
 // все попапы
 export const popups = document.querySelectorAll('.popup')
 //Шесть карточек «из коробки»

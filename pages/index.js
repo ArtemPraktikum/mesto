@@ -93,10 +93,29 @@ function addOnGalery(item) {
   galery.prepend(item)
 }
 // функция добавить в html карточки из массива
-initialCards.forEach(function fillCard(item) {
+initialCards.forEach((item) => {
   const completedСard = new Card(item.name, item.link, '.template')
   addOnGalery(completedСard.getCard())
 })
+
+
+const preInstalledCards = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name, item.link, '.template')
+    const cardElement = card.getCard()
+
+    preInstalledCards.setItem(cardElement)
+  }}, '.elements')
+
+preInstalledCards.renderItems()
+
+
+
+
+
+
+
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openClearAddPopup() {
