@@ -1,6 +1,7 @@
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
+import Popup from '../components/Popup.js'
 import {
   profilePopup,
   formProfile,
@@ -61,6 +62,8 @@ popups.forEach((popup) => {
   })
 })
 
+const testPopup = new Popup('.profile-popup');
+
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'
 function handleSubmitForm(evt) {
   // отмена действия по умолчанию у submit
@@ -92,13 +95,7 @@ formProfile.addEventListener('submit', handleSubmitForm)
 function addOnGalery(item) {
   galery.prepend(item)
 }
-// функция добавить в html карточки из массива
-initialCards.forEach((item) => {
-  const completedСard = new Card(item.name, item.link, '.template')
-  addOnGalery(completedСard.getCard())
-})
-
-
+// карточки из массива
 const preInstalledCards = new Section({
   data: initialCards,
   renderer: (item) => {
@@ -109,13 +106,6 @@ const preInstalledCards = new Section({
   }}, '.elements')
 
 preInstalledCards.renderItems()
-
-
-
-
-
-
-
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openClearAddPopup() {
