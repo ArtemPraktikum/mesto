@@ -2,8 +2,6 @@
 export const profilePopup = document.querySelector('.profile-popup')
 // попап 'карточка'
 export const addPopup = document.querySelector('.add-popup')
-// попап 'фуллскрин'
-export const popupFullScreen = document.querySelector('.popup_fullscreen')
 // форма в попапе 'о себе'
 export const formProfile = profilePopup.querySelector('.popup__container')
 // инпуты в форме в попапе 'о себе': Имя, обо мне.

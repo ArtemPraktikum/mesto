@@ -2,6 +2,8 @@ import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+
 import {
   formProfile,
   nameInput,
@@ -24,7 +26,7 @@ profilePopupClass.setEventListeners()
 const addPopupClass = new Popup('.add-popup')
 addPopupClass.setEventListeners()
 // попап 'фуллскрин'
-export const popupFullScreenClass = new Popup('.popup_fullscreen')
+export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
 
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'

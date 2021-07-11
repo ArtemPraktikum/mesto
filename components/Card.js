@@ -1,4 +1,3 @@
-import {popupFullScreen} from '../utils/constants.js'
 import {popupFullScreenClass} from '../pages/index.js';
 
 export default class Card {
@@ -33,14 +32,7 @@ export default class Card {
     this._card = null
   }
   _openPreviewImage = () => {
-    this._fullImage = popupFullScreen.querySelector('.fullscreen__image')
-    this._fullCaption = popupFullScreen.querySelector('.fullscreen__text')
-
-    this._fullImage.setAttribute('src', this._link)
-    this._fullImage.setAttribute('alt', this._name)
-    this._fullCaption.textContent = this._name
-
-    popupFullScreenClass.open()
+    popupFullScreenClass.open(this._link, this._name)
   }
 
   getCard() {
