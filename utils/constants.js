@@ -1,5 +1,9 @@
 // попап 'о себе'
 export const profilePopup = document.querySelector('.profile-popup')
+// попап 'карточка'
+export const addPopup = document.querySelector('.add-popup')
+// попап 'фуллскрин'
+export const popupFullScreen = document.querySelector('.popup_fullscreen')
 // форма в попапе 'о себе'
 export const formProfile = profilePopup.querySelector('.popup__container')
 // инпуты в форме в попапе 'о себе': Имя, обо мне.
@@ -10,8 +14,6 @@ export const profileName = document.querySelector('.profile__title')
 export const profileAbout = document.querySelector('.profile__subtitle')
 // кнопка открыть попап 'о себе'
 export const openButton = document.querySelector('.profile__edit-button')
-// попап 'карточка'
-export const addPopup = document.querySelector('.add-popup')
 // форма в попапе 'карточка'
 export const formAddCard = addPopup.querySelector('.popup__container')
 // инпуты в попапе 'карточка': Название, ссылка.
@@ -21,9 +23,6 @@ export const addAboutInput = formAddCard.querySelector('#link')
 export const addButton = document.querySelector('.profile__add-button')
 // секция с карточками
 export const galery = document.querySelector('.elements')
-
-// все попапы
-export const popups = document.querySelectorAll('.popup')
 //Шесть карточек «из коробки»
 export const initialCards = [{
     name: 'Архыз',

@@ -3,66 +3,29 @@ import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
 import {
-  profilePopup,
   formProfile,
   nameInput,
   aboutInput,
   profileName,
   profileAbout,
   openButton,
-  addPopup,
   formAddCard,
   addNameInput,
   addAboutInput,
   addButton,
   galery,
-  initialCards,
-  popups
+  initialCards
 } from '../utils/constants.js';
 
-// функция Открыть\Закрыть любой попап
-export function togglePopup(popup) {
-  // открыть/закрыть попап
-  popup.classList.toggle('popup_opened')
-
-  // если попап открылся
-  if (popup.classList.contains('popup_opened')) {
-    //добавить возможность закрыть его нажав esc
-    document.addEventListener('keydown', closeByEscape);
-  }
-  // если попап закрылся
-  else {
-    // убрать возможность закрыть его нажав esc
-    document.removeEventListener('keydown', closeByEscape);
-  }
-}
-
-// функции закрыть любой попап при нажатии esc
-function closeByEscape(evt) {
-  // если нажать esc
-  if (evt.key === 'Escape') {
-    // найти открытый попап
-    const openedPopup = document.querySelector('.popup_opened')
-    // закрыть открытый попап
-    togglePopup(openedPopup);
-  }
-}
-// выбрать каждый попап
-popups.forEach((popup) => {
-  // добавить каждому попапу листенер при клике
-  popup.addEventListener('mousedown', (evt) => {
-    // если попап открыт при клике вне формы закрыть его
-    if (evt.target.classList.contains('popup_opened')) {
-      togglePopup(popup)
-    }
-    // закрыть попап при клике по крестику
-    if (evt.target.classList.contains('popup__close-button')) {
-      togglePopup(popup)
-    }
-  })
-})
-
-const testPopup = new Popup('.profile-popup');
+// попап 'о себе'
+const profilePopupClass = new Popup('.profile-popup')
+profilePopupClass.setEventListeners()
+// попап 'карточка'
+const addPopupClass = new Popup('.add-popup')
+addPopupClass.setEventListeners()
+// попап 'фуллскрин'
+export const popupFullScreenClass = new Popup('.popup_fullscreen')
+popupFullScreenClass.setEventListeners()
 
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'
 function handleSubmitForm(evt) {
@@ -73,9 +36,8 @@ function handleSubmitForm(evt) {
   // изменить подзаголовок 'обо мне' в html на текст из инпута 'обо мне' в попапе 'о себе'
   profileAbout.textContent = aboutInput.value
   // закрыть попап 'о себе'
-  togglePopup(profilePopup)
+  profilePopupClass.close()
 }
-
 // функция отправить данные из html в инпуты попапа 'о себе' и открыть попап 'о себе'
 function handleOpenCloseForm() {
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
@@ -83,7 +45,7 @@ function handleOpenCloseForm() {
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
   aboutInput.value = profileAbout.textContent
   // открыть попап 'о себе'
-  togglePopup(profilePopup)
+  profilePopupClass.open()
 }
 
 // навесить слушатель на кнопку открыть попап 'о себе' и handleOpenCloseForm
@@ -110,11 +72,11 @@ preInstalledCards.renderItems()
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openClearAddPopup() {
   formAddCard.reset()
-  togglePopup(addPopup)
+  addPopupClass.open()
   validateAddPopup.toggleButtonState()
 }
 
-// функция добавить в html карточку с данными из инпутов попапа 'карточка'
+// функция добавить в html карточку с данными из инпутов попапа 'карточка' и закрыть попап
 function addCardFromForm(evt) {
   // отмена действия по умолчанию у submit
   evt.preventDefault();
@@ -123,7 +85,7 @@ function addCardFromForm(evt) {
   // добавить в html
   addOnGalery(completedСard.getCard())
   // закрыть попап 'карточка'
-  togglePopup(addPopup)
+  addPopupClass.close()
 }
 
 // навесить слушатель на отправить форму и addCardFromForm

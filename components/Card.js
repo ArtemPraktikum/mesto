@@ -1,7 +1,5 @@
-import {
-  togglePopup
-} from '../pages/index.js'
-const popupFullScreen = document.querySelector('.popup_fullscreen')
+import {popupFullScreen} from '../utils/constants.js'
+import {popupFullScreenClass} from '../pages/index.js';
 
 export default class Card {
   constructor(name, link, templateSelector) {
@@ -42,7 +40,7 @@ export default class Card {
     this._fullImage.setAttribute('alt', this._name)
     this._fullCaption.textContent = this._name
 
-    togglePopup(popupFullScreen)
+    popupFullScreenClass.open()
   }
 
   getCard() {
