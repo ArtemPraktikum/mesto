@@ -14,13 +14,8 @@ export const profileAbout = document.querySelector('.profile__subtitle')
 export const openButton = document.querySelector('.profile__edit-button')
 // форма в попапе 'карточка'
 export const formAddCard = addPopup.querySelector('.popup__container')
-// инпуты в попапе 'карточка': Название, ссылка.
-export const addNameInput = formAddCard.querySelector('#placeName')
-export const addAboutInput = formAddCard.querySelector('#link')
 // кнопка открыть попап 'карточка'
 export const addButton = document.querySelector('.profile__add-button')
-// секция с карточками
-export const galery = document.querySelector('.elements')
 //Шесть карточек «из коробки»
 export const initialCards = [{
     name: 'Архыз',

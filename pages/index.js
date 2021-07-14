@@ -1,7 +1,6 @@
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
-import Popup from '../components/Popup.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 
@@ -13,10 +12,7 @@ import {
   profileAbout,
   openButton,
   formAddCard,
-  addNameInput,
-  addAboutInput,
   addButton,
-  galery,
   initialCards
 } from '../utils/constants.js';
 
@@ -31,10 +27,6 @@ const profilePopupClass = new PopupWithForm(
 )
 profilePopupClass.setEventListeners()
 
-// попап 'фуллскрин'
-export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
-popupFullScreenClass.setEventListeners()
-
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
@@ -44,6 +36,10 @@ const addPopupClass = new PopupWithForm(
   }
 )
 addPopupClass.setEventListeners()
+
+// попап 'фуллскрин'
+export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
+popupFullScreenClass.setEventListeners()
 
 
 // функция отправить данные из html в инпуты попапа 'о себе' и открыть попап 'о себе'
