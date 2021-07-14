@@ -29,6 +29,16 @@ addPopupClass.setEventListeners()
 export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
 
+
+
+
+
+
+
+
+
+
+
 // функция отправить данные из инпутов попапа 'о себе' в html и закрыть попап 'о себе'
 function handleSubmitForm(evt) {
   // отмена действия по умолчанию у submit
@@ -40,42 +50,13 @@ function handleSubmitForm(evt) {
   // закрыть попап 'о себе'
   profilePopupClass.close()
 }
-// функция отправить данные из html в инпуты попапа 'о себе' и открыть попап 'о себе'
-function handleOpenCloseForm() {
-  // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
-  nameInput.value = profileName.textContent
-  // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
-  aboutInput.value = profileAbout.textContent
-  // открыть попап 'о себе'
-  profilePopupClass.open()
-}
 
-// навесить слушатель на кнопку открыть попап 'о себе' и handleOpenCloseForm
-openButton.addEventListener('click', handleOpenCloseForm)
 // навесить слушатель на отправить форму и handleSubmitForm
 formProfile.addEventListener('submit', handleSubmitForm)
 
 // функция вставить в html заполненную карточку
 function addOnGalery(item) {
   galery.prepend(item)
-}
-// карточки из массива
-const preInstalledCards = new Section({
-  data: initialCards,
-  renderer: (item) => {
-    const card = new Card(item.name, item.link, '.template')
-    const cardElement = card.getCard()
-
-    preInstalledCards.setItem(cardElement)
-  }}, '.elements')
-
-preInstalledCards.renderItems()
-
-// функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
-function openClearAddPopup() {
-  formAddCard.reset()
-  addPopupClass.open()
-  validateAddPopup.toggleButtonState()
 }
 
 // функция добавить в html карточку с данными из инпутов попапа 'карточка' и закрыть попап
@@ -90,10 +71,49 @@ function addCardFromForm(evt) {
   addPopupClass.close()
 }
 
+
+
+
+
+
+
 // навесить слушатель на отправить форму и addCardFromForm
 formAddCard.addEventListener('submit', addCardFromForm)
-// навесить слушатель на кнопку открыть попап карточка и openClearAddPopup
-addButton.addEventListener('click', openClearAddPopup)
+
+
+
+
+
+
+
+// функция отправить данные из html в инпуты попапа 'о себе' и открыть попап 'о себе'
+function openAboutmePopup() {
+  // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
+  nameInput.value = profileName.textContent
+  // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
+  aboutInput.value = profileAbout.textContent
+  // открыть попап 'о себе'
+  profilePopupClass.open()
+}
+// навесить слушатель на кнопку открыть попап 'о себе' и openAboutmePopup
+openButton.addEventListener('click', openAboutmePopup)
+
+// функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
+function openAddcardPopup() {
+  formAddCard.reset()
+  addPopupClass.open()
+  validateAddPopup.toggleButtonState()
+}
+// навесить слушатель на кнопку открыть попап карточка и openAddcardPopup
+addButton.addEventListener('click', openAddcardPopup)
+
+
+
+
+
+
+
+
 
 const formConfig = {
   inputSelector: '.popup__item',
@@ -105,3 +125,15 @@ const validateProfilePopup = new FormValidator(formConfig, formProfile)
 const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateProfilePopup.enableValidation()
 validateAddPopup.enableValidation()
+
+// карточки из массива
+const preInstalledCards = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name, item.link, '.template')
+    const cardElement = card.getCard()
+
+    preInstalledCards.setItem(cardElement)
+  }}, '.elements')
+
+preInstalledCards.renderItems()
