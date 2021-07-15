@@ -11,7 +11,7 @@ export const aboutInput = formProfile.querySelector('#aboutme')
 export const profileName = document.querySelector('.profile__title')
 export const profileAbout = document.querySelector('.profile__subtitle')
 // кнопка открыть попап 'о себе'
-export const openButton = document.querySelector('.profile__edit-button')
+export const openPopupAboumeButton = document.querySelector('.profile__edit-button')
 // форма в попапе 'карточка'
 export const formAddCard = addPopup.querySelector('.popup__container')
 // кнопка открыть попап 'карточка'

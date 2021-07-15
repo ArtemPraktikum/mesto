@@ -10,12 +10,25 @@ import {
   aboutInput,
   profileName,
   profileAbout,
-  openButton,
+  openPopupAboumeButton,
   formAddCard,
   addButton,
   initialCards
 } from '../utils/constants.js';
 
+
+// попап 'карточка'
+const addPopupClass = new PopupWithForm(
+  '.add-popup', (inputsObj) => {
+    const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template')
+    const cardElement = card.getCard()
+    preInstalledCards.setItem(cardElement)
+  }
+)
+addPopupClass.setEventListeners()
+// попап 'фуллскрин'
+export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
+popupFullScreenClass.setEventListeners()
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm(
   '.profile-popup', (inputsObj) => {
@@ -27,32 +40,16 @@ const profilePopupClass = new PopupWithForm(
 )
 profilePopupClass.setEventListeners()
 
-// попап 'карточка'
-const addPopupClass = new PopupWithForm(
-  '.add-popup', (inputsObj) => {
-    const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template')
-    const cardElement = card.getCard()
-    preInstalledCards.setItem(cardElement)
-  }
-)
-addPopupClass.setEventListeners()
 
-// попап 'фуллскрин'
-export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
-popupFullScreenClass.setEventListeners()
-
-
-// функция отправить данные из html в инпуты попапа 'о себе' и открыть попап 'о себе'
-function openAboutmePopup() {
+// навесить слушатель на кнопку открыть попап 'о себе'
+openPopupAboumeButton.addEventListener('click', () => {
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
   nameInput.value = profileName.textContent
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
   aboutInput.value = profileAbout.textContent
   // открыть попап 'о себе'
   profilePopupClass.open()
-}
-// навесить слушатель на кнопку открыть попап 'о себе' и openAboutmePopup
-openButton.addEventListener('click', openAboutmePopup)
+})
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openAddcardPopup() {
