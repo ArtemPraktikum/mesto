@@ -3,13 +3,12 @@ import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
 
 import {
   formProfile,
   nameInput,
   aboutInput,
-  profileName,
-  profileAbout,
   openPopupAboumeButton,
   formAddCard,
   addButton,
@@ -29,13 +28,18 @@ addPopupClass.setEventListeners()
 // попап 'фуллскрин'
 export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
+
+
+const userData = {
+  nameSelector: '.profile__title',
+  aboutmeSelector: '.profile__subtitle'
+}
+const user = new UserInfo(userData)
+
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm(
   '.profile-popup', (inputsObj) => {
-    // изменить заголовок 'Имя' в html на текст из инпута 'Имя' в попапе 'о себе'
-    profileName.textContent = inputsObj.nameInFormProfile
-    // изменить подзаголовок 'обо мне' в html на текст из инпута 'обо мне' в попапе 'о себе'
-    profileAbout.textContent = inputsObj.aboutmeInFormProfile
+    user.setUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutmeInFormProfile)
   }
 )
 profilePopupClass.setEventListeners()
@@ -43,13 +47,21 @@ profilePopupClass.setEventListeners()
 
 // навесить слушатель на кнопку открыть попап 'о себе'
 openPopupAboumeButton.addEventListener('click', () => {
+  const {
+    name,
+    aboutme
+  } = user.getUserInfo()
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
-  nameInput.value = profileName.textContent
+  nameInput.value = name
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
-  aboutInput.value = profileAbout.textContent
+  aboutInput.value = aboutme
   // открыть попап 'о себе'
   profilePopupClass.open()
 })
+
+
+
+
 
 // функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
 function openAddcardPopup() {

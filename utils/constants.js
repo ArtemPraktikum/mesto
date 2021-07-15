@@ -7,9 +7,6 @@ export const formProfile = profilePopup.querySelector('.popup__container')
 // инпуты в форме в попапе 'о себе': Имя, обо мне.
 export const nameInput = formProfile.querySelector('#name')
 export const aboutInput = formProfile.querySelector('#aboutme')
-// заголовок и подзаголовок в html: Имя, обо мне.
-export const profileName = document.querySelector('.profile__title')
-export const profileAbout = document.querySelector('.profile__subtitle')
 // кнопка открыть попап 'о себе'
 export const openPopupAboumeButton = document.querySelector('.profile__edit-button')
 // форма в попапе 'карточка'
