@@ -1,10 +1,9 @@
-import {popupFullScreenClass} from '../pages/index.js';
-
 export default class Card {
-  constructor(name, link, templateSelector) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name
     this._link = link
     this._templateSelector = templateSelector
+    this._handleCardClick = handleCardClick
   }
   _makeCard() {
     this._card = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
@@ -22,7 +21,9 @@ export default class Card {
 
     this._like.addEventListener('click', this._handleLike)
     this._trash.addEventListener('click', this._deleteCard)
-    this._image.addEventListener('click', this._openPreviewImage)
+    this._image.addEventListener('click', () => {
+      this._handleCardClick(this._link, this._name)
+    })
   }
   _handleLike = () => {
     this._like.classList.toggle('element__like-button_active')
@@ -31,10 +32,6 @@ export default class Card {
     this._card.remove()
     this._card = null
   }
-  _openPreviewImage = () => {
-    popupFullScreenClass.open(this._link, this._name)
-  }
-
   getCard() {
     return this._makeCard()
   }

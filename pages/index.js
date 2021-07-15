@@ -16,18 +16,54 @@ import {
 } from '../utils/constants.js';
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// попап 'фуллскрин'
+const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
+popupFullScreenClass.setEventListeners()
+
+
+// карточки из массива
+const preInstalledCards = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name, item.link, '.template', (link, name) => {
+        popupFullScreenClass.open(link, name)
+    })
+    const cardElement = card.getCard()
+
+    preInstalledCards.setItem(cardElement)
+  }
+},
+'.elements'
+)
+preInstalledCards.renderItems()
+
+
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
-    const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template')
+    const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template', (link, name) => {
+      popupFullScreenClass.open(link, name)
+  })
     const cardElement = card.getCard()
     preInstalledCards.setItem(cardElement)
   }
 )
 addPopupClass.setEventListeners()
-// попап 'фуллскрин'
-export const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
-popupFullScreenClass.setEventListeners()
+
 
 
 const userData = {
@@ -84,18 +120,3 @@ const validateProfilePopup = new FormValidator(formConfig, formProfile)
 const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateProfilePopup.enableValidation()
 validateAddPopup.enableValidation()
-
-// карточки из массива
-const preInstalledCards = new Section({
-    data: initialCards,
-    renderer: (item) => {
-      const card = new Card(item.name, item.link, '.template')
-      const cardElement = card.getCard()
-
-      preInstalledCards.setItem(cardElement)
-    }
-  },
-  '.elements'
-)
-
-preInstalledCards.renderItems()
