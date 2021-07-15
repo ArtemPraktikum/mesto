@@ -1,19 +1,26 @@
 {
-  "name": "yandex_praktikum",
-  "version": "0.0.1",
+  "name": "mesto",
+  "version": "1.0.0",
   "description": "--- ### При верстке этого проекта был использован: флекс, грид, медиа запросы, js(впервые), много функций и переменных. #### https://artempraktikum.github.io/mesto/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArtemPraktikum/mesto.git"
   },
-  "author": "Artem Velmozhin",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ArtemPraktikum/mesto/issues"
   },
-  "homepage": "https://github.com/ArtemPraktikum/mesto#readme"
+  "homepage": "https://github.com/ArtemPraktikum/mesto#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
 }
