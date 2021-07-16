@@ -1,11 +1,14 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
-  entry: './pages/index.js',
+  entry: { main: './pages/index.js' },
   output: {
-    filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        publicPath: ''
   },
 
   mode: 'development',
@@ -13,7 +16,24 @@ module.exports = {
     contentBase: path.resolve(__dirname, './dist'),
     compress: true,
     port: 8080,
+
+    open: true
   },
 
-  plugins: [new CleanWebpackPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: '/node_modules/'
+      },
+      ],
+  },
+
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    }),
+  ],
 };
