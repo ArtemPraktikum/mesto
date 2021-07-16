@@ -9,7 +9,7 @@ export default class Section {
       this._renderer(item)
     })
   }
-  setItem(element) {
+  addItem(element) {
     this._container.prepend(element)
   }
 }

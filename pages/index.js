@@ -6,49 +6,35 @@ import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
-
 import {
   formProfile,
   nameInput,
   aboutInput,
   openPopupAboumeButton,
   formAddCard,
-  addButton,
-  initialCards
+  openAddPopupButton,
+  initialCards,
+  userData,
+  formConfig
 } from '../utils/constants.js';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
 
-
 // карточки из массива
 const preInstalledCards = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item.name, item.link, '.template', (link, name) => {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item.name, item.link, '.template', (link, name) => {
         popupFullScreenClass.open(link, name)
-    })
-    const cardElement = card.getCard()
+      })
+      const cardElement = card.getCard()
 
-    preInstalledCards.setItem(cardElement)
-  }
-},
-'.elements'
+      preInstalledCards.addItem(cardElement)
+    }
+  },
+  '.elements'
 )
 preInstalledCards.renderItems()
 
@@ -58,19 +44,13 @@ const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
     const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template', (link, name) => {
       popupFullScreenClass.open(link, name)
-  })
+    })
     const cardElement = card.getCard()
-    preInstalledCards.setItem(cardElement)
+    preInstalledCards.addItem(cardElement)
   }
 )
 addPopupClass.setEventListeners()
 
-
-
-const userData = {
-  nameSelector: '.profile__title',
-  aboutmeSelector: '.profile__subtitle'
-}
 const user = new UserInfo(userData)
 
 // попап 'о себе'
@@ -80,7 +60,6 @@ const profilePopupClass = new PopupWithForm(
   }
 )
 profilePopupClass.setEventListeners()
-
 
 // навесить слушатель на кнопку открыть попап 'о себе'
 openPopupAboumeButton.addEventListener('click', () => {
@@ -96,27 +75,14 @@ openPopupAboumeButton.addEventListener('click', () => {
   profilePopupClass.open()
 })
 
+// навесить слушатель на кнопку открыть попап 'карточка'
+openAddPopupButton.addEventListener('click', () => {
+    addPopupClass.open()
+    validateAddPopup.toggleButtonState()
+})
 
 
 
-
-// функция очистить инпуты в попапе 'карточка' и открыть попап 'карточка'
-function openAddcardPopup() {
-  // открыть попап 'карточка'
-  addPopupClass.open()
-  // валидировать submit кнопку
-  validateAddPopup.toggleButtonState()
-}
-// навесить слушатель на кнопку открыть попап 'карточка' и openAddcardPopup
-addButton.addEventListener('click', openAddcardPopup)
-
-
-const formConfig = {
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__sumbit-button',
-  inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
-}
 const validateProfilePopup = new FormValidator(formConfig, formProfile)
 const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateProfilePopup.enableValidation()

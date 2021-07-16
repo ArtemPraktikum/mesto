@@ -12,7 +12,7 @@ export const openPopupAboumeButton = document.querySelector('.profile__edit-butt
 // форма в попапе 'карточка'
 export const formAddCard = addPopup.querySelector('.popup__container')
 // кнопка открыть попап 'карточка'
-export const addButton = document.querySelector('.profile__add-button')
+export const openAddPopupButton = document.querySelector('.profile__add-button')
 //Шесть карточек «из коробки»
 export const initialCards = [{
     name: 'Архыз',
@@ -39,3 +39,13 @@ export const initialCards = [{
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+export const userData = {
+  nameSelector: '.profile__title',
+  aboutmeSelector: '.profile__subtitle'
+}
+export const formConfig = {
+  inputSelector: '.popup__item',
+  submitButtonSelector: '.popup__sumbit-button',
+  inactiveButtonClass: 'popup__sumbit-button_inactive',
+  errorClass: 'popup__item-error_active'
+}
