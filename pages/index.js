@@ -38,7 +38,7 @@ popupFullScreenClass.setEventListeners()
 
 // карточки из массива
 const preInstalledCards = new Section({
-  data: initialCards,
+  items: initialCards,
   renderer: (item) => {
     const card = new Card(item.name, item.link, '.template', (link, name) => {
         popupFullScreenClass.open(link, name)
