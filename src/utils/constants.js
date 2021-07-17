@@ -6,7 +6,7 @@ export const addPopup = document.querySelector('.add-popup')
 export const formProfile = profilePopup.querySelector('.popup__container')
 // инпуты в форме в попапе 'о себе': Имя, обо мне.
 export const nameInput = formProfile.querySelector('#name')
-export const aboutInput = formProfile.querySelector('#aboutme')
+export const aboutInput = formProfile.querySelector('#aboutMe')
 // кнопка открыть попап 'о себе'
 export const openPopupAboumeButton = document.querySelector('.profile__edit-button')
 // форма в попапе 'карточка'
@@ -41,7 +41,7 @@ export const initialCards = [{
 ];
 export const userData = {
   nameSelector: '.profile__title',
-  aboutmeSelector: '.profile__subtitle'
+  aboutMeSelector: '.profile__subtitle'
 }
 export const formConfig = {
   inputSelector: '.popup__item',

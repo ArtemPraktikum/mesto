@@ -52,7 +52,7 @@ preInstalledCards.renderItems()
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
-    preInstalledCards.addItem(createCard(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template',))
+    preInstalledCards.addItem(createCard(inputsObj.nameInFormAddCard, inputsObj.aboutMeInFormAddCard, '.template',))
     addPopupClass.close()
 
   }
@@ -64,7 +64,7 @@ const user = new UserInfo(userData)
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm(
   '.profile-popup', (inputsObj) => {
-    user.setUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutmeInFormProfile)
+    user.setUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutMeInFormProfile)
     profilePopupClass.close()
   }
 )
@@ -74,12 +74,12 @@ profilePopupClass.setEventListeners()
 openPopupAboumeButton.addEventListener('click', () => {
   const {
     name,
-    aboutme
+    aboutMe
   } = user.getUserInfo()
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
   nameInput.value = name
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
-  aboutInput.value = aboutme
+  aboutInput.value = aboutMe
   // открыть попап 'о себе'
   profilePopupClass.open()
 })
