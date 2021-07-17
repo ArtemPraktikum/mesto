@@ -22,16 +22,21 @@ import {
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
 
+
+function createCard(name, link, templateSelector) {
+  const card = new Card(name, link, templateSelector, (link, name) => {
+    popupFullScreenClass.open(link, name)
+  })
+  const cardElement = card.getCard()
+
+  return cardElement
+}
+
 // карточки из массива
 const preInstalledCards = new Section({
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item.name, item.link, '.template', (link, name) => {
-        popupFullScreenClass.open(link, name)
-      })
-      const cardElement = card.getCard()
-
-      preInstalledCards.addItem(cardElement)
+      preInstalledCards.addItem(createCard(item.name, item.link, '.template'))
     }
   },
   '.elements'
@@ -42,11 +47,7 @@ preInstalledCards.renderItems()
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
-    const card = new Card(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template', (link, name) => {
-      popupFullScreenClass.open(link, name)
-    })
-    const cardElement = card.getCard()
-    preInstalledCards.addItem(cardElement)
+    preInstalledCards.addItem(createCard(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template',))
   }
 )
 addPopupClass.setEventListeners()
@@ -77,8 +78,8 @@ openPopupAboumeButton.addEventListener('click', () => {
 
 // навесить слушатель на кнопку открыть попап 'карточка'
 openAddPopupButton.addEventListener('click', () => {
-    addPopupClass.open()
-    validateAddPopup.toggleButtonState()
+  addPopupClass.open()
+  validateAddPopup.toggleButtonState()
 })
 
 
