@@ -1,6 +1,6 @@
 export default class Popup {
   constructor(popupSelector) {
-    this._popup =  document.querySelector(popupSelector)
+    this._popup = document.querySelector(popupSelector)
   }
   open() {
     this._popup.classList.add('popup_opened')
@@ -17,10 +17,7 @@ export default class Popup {
   }
   setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        this.close()
-      }
-      if (evt.target.classList.contains('popup__close-button')) {
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
         this.close()
       }
     })

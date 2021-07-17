@@ -24,8 +24,13 @@ popupFullScreenClass.setEventListeners()
 
 
 function createCard(name, link, templateSelector) {
-  const card = new Card(name, link, templateSelector, (link, name) => {
-    popupFullScreenClass.open(link, name)
+  const card = new Card({
+    name: name,
+    link: link,
+    templateSelector: templateSelector,
+    handleCardClick: (link, name) => {
+      popupFullScreenClass.open(link, name)
+    }
   })
   const cardElement = card.getCard()
 
@@ -48,6 +53,8 @@ preInstalledCards.renderItems()
 const addPopupClass = new PopupWithForm(
   '.add-popup', (inputsObj) => {
     preInstalledCards.addItem(createCard(inputsObj.nameInFormAddCard, inputsObj.aboutmeInFormAddCard, '.template',))
+    addPopupClass.close()
+
   }
 )
 addPopupClass.setEventListeners()
@@ -58,6 +65,7 @@ const user = new UserInfo(userData)
 const profilePopupClass = new PopupWithForm(
   '.profile-popup', (inputsObj) => {
     user.setUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutmeInFormProfile)
+    profilePopupClass.close()
   }
 )
 profilePopupClass.setEventListeners()
