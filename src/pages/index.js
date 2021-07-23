@@ -39,7 +39,7 @@ function createCard(name, link, templateSelector) {
 
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(".add-popup", (inputsObj) => {
-  preInstalledCards.addItem(
+  document.querySelector('.elements').prepend(
     createCard(
       inputsObj.nameInFormAddCard,
       inputsObj.aboutMeInFormAddCard,
@@ -101,12 +101,21 @@ const options = {
 
 const api = new Api(options);
 
+// заполнить информацию о пользователе
+api.getUserInfo()
+.then(function setUserParametrs (userArray) {
+  document.querySelector('.profile__title').textContent = userArray.name
+  document.querySelector('.profile__subtitle').textContent = userArray.about
+  document.querySelector('.profile__avatar').setAttribute('src', userArray.avatar)
+})
+
+// отрисовать предустановленные карточки
 api.getInitialCards()
-.then((data) => {
+.then((cardsArray) => {
   // карточки из массива
   const preInstalledCards = new Section(
     {
-      items: data,
+      items: cardsArray,
       renderer: (item) => {
         preInstalledCards.addItem(createCard(item.name, item.link, ".template"));
       },
