@@ -14,9 +14,6 @@ export default class Api {
         }
         return Promise.reject(`Ошибка бип-буп, статус: ${response.status}`)
       })
-      .then((resultModified) => {
-        console.log(resultModified);
-      })
       .catch((err) => {
         console.log(err)
       })

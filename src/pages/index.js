@@ -14,7 +14,6 @@ import {
   openPopupAboumeButton,
   formAddCard,
   openAddPopupButton,
-  initialCards,
   userData,
   formConfig,
 } from "../utils/constants.js";
@@ -37,17 +36,6 @@ function createCard(name, link, templateSelector) {
   return cardElement;
 }
 
-// карточки из массива
-const preInstalledCards = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      preInstalledCards.addItem(createCard(item.name, item.link, ".template"));
-    },
-  },
-  ".elements"
-);
-preInstalledCards.renderItems();
 
 // попап 'карточка'
 const addPopupClass = new PopupWithForm(".add-popup", (inputsObj) => {
@@ -97,6 +85,11 @@ validateAddPopup.enableValidation();
 
 
 
+
+
+
+
+
 const options = {
   cohort: 'cohort-26',
   url: 'https://mesto.nomoreparties.co/v1',
@@ -108,4 +101,17 @@ const options = {
 
 const api = new Api(options);
 
-api.getInitialCards();
+api.getInitialCards()
+.then((data) => {
+  // карточки из массива
+  const preInstalledCards = new Section(
+    {
+      items: data,
+      renderer: (item) => {
+        preInstalledCards.addItem(createCard(item.name, item.link, ".template"));
+      },
+    },
+    ".elements"
+  );
+  preInstalledCards.renderItems();
+})
