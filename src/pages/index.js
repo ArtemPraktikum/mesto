@@ -26,12 +26,10 @@ popupFullScreenClass.setEventListeners();
 
 const user = new UserInfo(userData);
 
-// попап 'о себе'
-const profilePopupClass = new PopupWithForm(".profile-popup", (inputsObj) => {
-  user.setUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutMeInFormProfile);
-  profilePopupClass.close();
-});
-profilePopupClass.setEventListeners();
+
+
+
+
 
 // навесить слушатель на кнопку открыть попап 'о себе'
 openPopupAboumeButton.addEventListener("click", () => {
@@ -75,12 +73,15 @@ const options = {
 
 const api = new Api(options);
 
+
+
+
+
+
 // заполнить информацию о пользователе
 api.getUserInfo()
-.then(function setUserParametrs (userArray) {
-  document.querySelector('.profile__title').textContent = userArray.name
-  document.querySelector('.profile__subtitle').textContent = userArray.about
-  document.querySelector('.profile__avatar').setAttribute('src', userArray.avatar)
+.then((userArray) => {
+  user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
 })
 
 
@@ -124,3 +125,21 @@ api.getInitialCards()
     }
   })
 })
+
+
+
+
+
+// попап 'о себе'
+const profilePopupClass = new PopupWithForm(
+  ".profile-popup",
+  (inputsObj) => {
+    api.updateUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutMeInFormProfile)
+    .then((userArray) => {
+      user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+    })
+  profilePopupClass.close();
+});
+
+profilePopupClass.setEventListeners();
+

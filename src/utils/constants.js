@@ -15,7 +15,8 @@ export const formAddCard = addPopup.querySelector('.popup__container')
 export const openAddPopupButton = document.querySelector('.profile__add-button')
 export const userData = {
   nameSelector: '.profile__title',
-  aboutMeSelector: '.profile__subtitle'
+  aboutMeSelector: '.profile__subtitle',
+  avatarSelector: '.profile__avatar'
 }
 export const formConfig = {
   inputSelector: '.popup__item',

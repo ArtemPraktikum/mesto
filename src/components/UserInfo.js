@@ -2,6 +2,7 @@ export default class UserInfo {
   constructor(selectorsObj) {
     this._nameElement = document.querySelector(selectorsObj.nameSelector)
     this._aboutMeElement = document.querySelector(selectorsObj.aboutMeSelector)
+    this._avatar = document.querySelector(selectorsObj.avatarSelector)
   }
   getUserInfo() {
     this._userObj = {
@@ -10,9 +11,10 @@ export default class UserInfo {
     }
     return this._userObj
   }
-  setUserInfo(inputName, inputAboutme) {
-    this._nameElement.textContent = inputName
-    this._aboutMeElement.textContent = inputAboutme
+  setUserInfo(inputNameValue, inputAboutmeValue, avatarLink) {
+    this._nameElement.textContent = inputNameValue
+    this._aboutMeElement.textContent = inputAboutmeValue
+    this._avatar.setAttribute('src', avatarLink)
   }
 }
 
