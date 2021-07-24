@@ -22,33 +22,7 @@ import {
 const popupFullScreenClass = new PopupWithImage(".popup_fullscreen");
 popupFullScreenClass.setEventListeners();
 
-function createCard(name, link, templateSelector) {
-  const card = new Card({
-    name: name,
-    link: link,
-    templateSelector: templateSelector,
-    handleCardClick: (link, name) => {
-      popupFullScreenClass.open(link, name);
-    },
-  });
-  const cardElement = card.getCard();
 
-  return cardElement;
-}
-
-
-// попап 'карточка'
-const addPopupClass = new PopupWithForm(".add-popup", (inputsObj) => {
-  document.querySelector('.elements').prepend(
-    createCard(
-      inputsObj.nameInFormAddCard,
-      inputsObj.aboutMeInFormAddCard,
-      ".template"
-    )
-  );
-  addPopupClass.close();
-});
-addPopupClass.setEventListeners();
 
 const user = new UserInfo(userData);
 
@@ -109,18 +83,44 @@ api.getUserInfo()
   document.querySelector('.profile__avatar').setAttribute('src', userArray.avatar)
 })
 
+
+function createCard(name, link, templateSelector) {
+  const card = new Card({
+    name: name,
+    link: link,
+    templateSelector: templateSelector,
+    handleCardClick: (link, name) => {
+      popupFullScreenClass.open(link, name);
+    },
+  });
+  const cardElement = card.getCard();
+
+  return cardElement;
+}
+
+const cardsGalery = new Section(".elements")
+
+// попап 'карточка' добавление карточки
+const addPopupClass = new PopupWithForm(".add-popup", (inputsObj) => {
+  cardsGalery.addItem(
+    createCard(
+      inputsObj.nameInFormAddCard,
+      inputsObj.aboutMeInFormAddCard,
+      ".template"
+    )
+  );
+  addPopupClass.close();
+});
+addPopupClass.setEventListeners();
+
+
 // отрисовать предустановленные карточки
 api.getInitialCards()
 .then((cardsArray) => {
-  // карточки из массива
-  const preInstalledCards = new Section(
-    {
-      items: cardsArray,
-      renderer: (item) => {
-        preInstalledCards.addItem(createCard(item.name, item.link, ".template"));
-      },
-    },
-    ".elements"
-  );
-  preInstalledCards.renderItems();
+  cardsGalery.renderItems({
+    items: cardsArray,
+    renderer: (item) => {
+      cardsGalery.addItem(createCard(item.name, item.link, ".template"));
+    }
+  })
 })

@@ -26,10 +26,7 @@ export default class Api {
         if (response.ok) {
           return response.json();
         }
-        return Promise.reject(`Ошибка в getInitialCards бип-буп, статус: ${response.status}`)
-      })
-      .catch((error) => {
-        console.log(error)
+        return Promise.reject(new Error(`Ошибка в getInitialCards бип-буп, статус: ${response.status}`))
       })
   }
 }
