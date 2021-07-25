@@ -1,8 +1,29 @@
 export default class Api {
-  constructor({ cohort, url, headers }) {
+  constructor({
+    cohort,
+    url,
+    headers
+  }) {
     this._cohort = cohort
     this._url = url
     this._headers = headers
+  }
+
+  postCard(name, link) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards', {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка в postCard бип-буп, статус: ${response.status}`)
+      })
   }
 
   updateUserInfo(name, about) {

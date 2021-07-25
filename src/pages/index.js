@@ -22,18 +22,14 @@ import {
 const popupFullScreenClass = new PopupWithImage(".popup_fullscreen");
 popupFullScreenClass.setEventListeners();
 
-
-
 const user = new UserInfo(userData);
-
-
-
-
-
 
 // навесить слушатель на кнопку открыть попап 'о себе'
 openPopupAboumeButton.addEventListener("click", () => {
-  const { name, aboutMe } = user.getUserInfoFromPage();
+  const {
+    name,
+    aboutMe
+  } = user.getUserInfoFromPage();
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
   nameInput.value = name;
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
@@ -53,15 +49,6 @@ const validateAddPopup = new FormValidator(formConfig, formAddCard);
 validateProfilePopup.enableValidation();
 validateAddPopup.enableValidation();
 
-
-
-
-
-
-
-
-
-
 const options = {
   cohort: 'cohort-26',
   url: 'https://mesto.nomoreparties.co/v1',
@@ -73,16 +60,11 @@ const options = {
 
 const api = new Api(options);
 
-
-
-
-
-
 // заполнить информацию о пользователе
 api.getUserInfo()
-.then((userArray) => {
-  user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
-})
+  .then((userArray) => {
+    user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+  })
 
 
 function createCard(name, link, templateSelector) {
@@ -101,45 +83,50 @@ function createCard(name, link, templateSelector) {
 
 const cardsGalery = new Section(".elements")
 
-// попап 'карточка' добавление карточки
-const addPopupClass = new PopupWithForm(".add-popup", (inputsObj) => {
-  cardsGalery.addItem(
-    createCard(
-      inputsObj.nameInFormAddCard,
-      inputsObj.aboutMeInFormAddCard,
-      ".template"
-    )
-  );
-  addPopupClass.close();
-});
-addPopupClass.setEventListeners();
-
-
 // отрисовать предустановленные карточки
 api.getInitialCards()
-.then((cardsArray) => {
-  cardsGalery.renderItems({
-    items: cardsArray,
-    renderer: (item) => {
-      cardsGalery.addItem(createCard(item.name, item.link, ".template"));
-    }
+  .then((cardsArray) => {
+    cardsGalery.renderItems({
+      items: cardsArray,
+      renderer: (item) => {
+        cardsGalery.addItemAppend(createCard(item.name, item.link, ".template"));
+      }
+    })
   })
-})
-
-
-
-
 
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm(
   ".profile-popup",
   (inputsObj) => {
-    api.updateUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutMeInFormProfile)
-    .then((userArray) => {
-      user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
-    })
-  profilePopupClass.close();
-});
-
+    api.updateUserInfo(
+        inputsObj.nameInFormProfile,
+        inputsObj.aboutMeInFormProfile
+      )
+      .then((userArray) => {
+        user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+      })
+    profilePopupClass.close();
+  }
+);
 profilePopupClass.setEventListeners();
 
+// попап 'карточка'
+const addPopupClass = new PopupWithForm(
+  ".add-popup",
+  (inputsObj) => {
+    api.postCard(
+      inputsObj.nameInFormAddCard,
+      inputsObj.aboutMeInFormAddCard
+    )
+    .then((responseCardElement) =>{
+      cardsGalery.addItemPrepend(
+        createCard(
+          responseCardElement.name,
+          responseCardElement.link,
+          ".template"
+        )
+      )
+    })
+    addPopupClass.close();
+  });
+addPopupClass.setEventListeners();
