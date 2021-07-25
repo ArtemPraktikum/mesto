@@ -33,7 +33,7 @@ const user = new UserInfo(userData);
 
 // навесить слушатель на кнопку открыть попап 'о себе'
 openPopupAboumeButton.addEventListener("click", () => {
-  const { name, aboutMe } = user.getUserInfo();
+  const { name, aboutMe } = user.getUserInfoFromPage();
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
   nameInput.value = name;
   // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html

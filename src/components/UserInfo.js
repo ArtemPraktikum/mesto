@@ -4,7 +4,7 @@ export default class UserInfo {
     this._aboutMeElement = document.querySelector(selectorsObj.aboutMeSelector)
     this._avatar = document.querySelector(selectorsObj.avatarSelector)
   }
-  getUserInfo() {
+  getUserInfoFromPage() {
     this._userObj = {
     name: this._nameElement.textContent,
     aboutMe: this._aboutMeElement.textContent
