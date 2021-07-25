@@ -1,17 +1,20 @@
 export default class Card {
-  constructor({name, link, templateSelector, handleCardClick}) {
+  constructor({name, link, templateSelector, likeNumber, handleCardClick}) {
     this._name = name
     this._link = link
     this._templateSelector = templateSelector
+    this.likeNumber = likeNumber
     this._handleCardClick = handleCardClick
   }
   _makeCard() {
     this._card = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     this._image = this._card.querySelector('.element__image')
     this._title = this._card.querySelector('.element__title')
+    this._likeNumberElement = this._card.querySelector('.element__like-counter')
     this._title.textContent = this._name
     this._image.setAttribute('src', this._link)
     this._image.setAttribute('alt', this._name)
+    this._likeNumberElement.textContent = this.likeNumber.length
     this._setListeners()
     return this._card
   }

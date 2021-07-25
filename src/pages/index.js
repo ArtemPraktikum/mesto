@@ -67,11 +67,12 @@ api.getUserInfo()
   })
 
 
-function createCard(name, link, templateSelector) {
+function createCard(name, link, templateSelector, likeNumber) {
   const card = new Card({
     name: name,
     link: link,
     templateSelector: templateSelector,
+    likeNumber: likeNumber,
     handleCardClick: (link, name) => {
       popupFullScreenClass.open(link, name);
     },
@@ -89,7 +90,11 @@ api.getInitialCards()
     cardsGalery.renderItems({
       items: cardsArray,
       renderer: (item) => {
-        cardsGalery.addItemAppend(createCard(item.name, item.link, ".template"));
+        cardsGalery.addItemAppend(createCard(
+          item.name,
+          item.link,
+          ".template",
+          item.likes));
       }
     })
   })
@@ -123,7 +128,8 @@ const addPopupClass = new PopupWithForm(
         createCard(
           responseCardElement.name,
           responseCardElement.link,
-          ".template"
+          ".template",
+          responseCardElement.likes
         )
       )
     })
