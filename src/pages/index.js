@@ -3,6 +3,7 @@ import "./index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -15,8 +16,13 @@ import {
   formAddCard,
   openAddPopupButton,
   userData,
-  formConfig,
+  formConfig
 } from "../utils/constants.js";
+
+
+const cardDeletePopupClass = new Popup('.popup-delete')
+cardDeletePopupClass.setEventListeners()
+
 
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage(".popup_fullscreen");
@@ -44,10 +50,14 @@ openAddPopupButton.addEventListener("click", () => {
   validateAddPopup.toggleButtonState();
 });
 
-const validateProfilePopup = new FormValidator(formConfig, formProfile);
-const validateAddPopup = new FormValidator(formConfig, formAddCard);
-validateProfilePopup.enableValidation();
-validateAddPopup.enableValidation();
+const validateProfilePopup = new FormValidator(
+  formConfig,
+  formProfile)
+const validateAddPopup = new FormValidator(
+  formConfig,
+  formAddCard)
+validateProfilePopup.enableValidation()
+validateAddPopup.enableValidation()
 
 const options = {
   cohort: 'cohort-26',
@@ -63,7 +73,11 @@ const api = new Api(options);
 // заполнить информацию о пользователе
 api.getUserInfo()
   .then((userArray) => {
-    user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+    user.setUserInfo(
+      userArray.name,
+      userArray.about,
+      userArray.avatar
+    )
   })
 
 
@@ -108,7 +122,10 @@ const profilePopupClass = new PopupWithForm(
         inputsObj.aboutMeInFormProfile
       )
       .then((userArray) => {
-        user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+        user.setUserInfo(
+          userArray.name,
+          userArray.about,
+          userArray.avatar)
       })
     profilePopupClass.close();
   }
@@ -120,19 +137,19 @@ const addPopupClass = new PopupWithForm(
   ".add-popup",
   (inputsObj) => {
     api.postCard(
-      inputsObj.nameInFormAddCard,
-      inputsObj.aboutMeInFormAddCard
-    )
-    .then((responseCardElement) =>{
-      cardsGalery.addItemPrepend(
-        createCard(
-          responseCardElement.name,
-          responseCardElement.link,
-          ".template",
-          responseCardElement.likes
-        )
+        inputsObj.nameInFormAddCard,
+        inputsObj.aboutMeInFormAddCard
       )
-    })
+      .then((responseCardElement) => {
+        cardsGalery.addItemPrepend(
+          createCard(
+            responseCardElement.name,
+            responseCardElement.link,
+            ".template",
+            responseCardElement.likes
+          )
+        )
+      })
     addPopupClass.close();
   });
 addPopupClass.setEventListeners();
