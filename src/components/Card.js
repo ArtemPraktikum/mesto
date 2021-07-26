@@ -6,10 +6,13 @@ export default class Card {
     this.likeNumber = likeNumber
     this._handleCardClick = handleCardClick
   }
-  _makeCard() {
+  _makeCard = () => {
     this._card = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     this._image = this._card.querySelector('.element__image')
     this._title = this._card.querySelector('.element__title')
+    this._like = this._card.querySelector('.element__like-button')
+    this._trash = this._card.querySelector('.element__trash-button')
+
     this._likeNumberElement = this._card.querySelector('.element__like-counter')
     this._title.textContent = this._name
     this._image.setAttribute('src', this._link)
@@ -18,10 +21,7 @@ export default class Card {
     this._setListeners()
     return this._card
   }
-  _setListeners() {
-    this._like = this._card.querySelector('.element__like-button')
-    this._trash = this._card.querySelector('.element__trash-button')
-
+  _setListeners = () => {
     this._like.addEventListener('click', this._handleLike)
     this._trash.addEventListener('click', this._deleteCard)
     this._image.addEventListener('click', () => {
