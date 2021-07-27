@@ -1,9 +1,8 @@
 import Popup from './Popup.js'
 
-export default class PopupWithImage extends Popup {
-  constructor(popupSelector, submitCallback) {
+export default class PopupWithSubmit extends Popup {
+  constructor(popupSelector) {
     super(popupSelector)
-    this._submitCallback = submitCallback
     this._submitButton = this._popup.querySelector('.popup__sumbit-button')
   }
   setEventListeners() {
@@ -13,4 +12,7 @@ export default class PopupWithImage extends Popup {
       this._submitCallback()
     })
   }
+  fillSubmitCallback = (method) => {
+    this._submitCallback = method
+  } 
 }

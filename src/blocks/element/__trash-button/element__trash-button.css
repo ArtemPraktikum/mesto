@@ -9,6 +9,7 @@
   position: absolute;
   top: 18px;
   right: 15px;
+  visibility: hidden;
 }
 .element__trash-button:hover {
   opacity: 0.6;

@@ -19,8 +19,6 @@ import {
   formConfig,
 } from '../utils/constants.js'
 
-
-
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
@@ -45,10 +43,12 @@ openAddPopupButton.addEventListener('click', () => {
 })
 
 const validateProfilePopup = new FormValidator(formConfig, formProfile)
-const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateProfilePopup.enableValidation()
+const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateAddPopup.enableValidation()
 
+const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
+PopupWithSubmitClass.setEventListeners()
 const options = {
   cohort: 'cohort-26',
   url: 'https://mesto.nomoreparties.co/v1',
@@ -57,24 +57,26 @@ const options = {
     authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
   },
 }
-
-const api = new Api(options)
-
-// заполнить информацию о пользователе
-api.getUserInfo().then((userArray) => {
-  user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
-})
-
-function createCard(name, link, templateSelector, likeNumber) {
-  const card = new Card({
-    name: name,
-    link: link,
-    templateSelector: templateSelector,
-    likeNumber: likeNumber,
-    handleCardClick: (link, name) => {
-      popupFullScreenClass.open(link, name)
+function createCard(item, templateSelector) {
+  const card = new Card(
+    {
+      data: item,
+      handleCardClick: () => {},
+      handleLikeClick: (card) => {},
+      handleDeleteIconClick: (cardId) => {
+        PopupWithSubmitClass.open()
+        PopupWithSubmitClass.fillSubmitCallback(() => {
+          // удалить карточку с сервера
+          api.deleteCard(cardId).then(() => {
+            card.deleteCard()
+            PopupWithSubmitClass.close()
+          })
+        })
+      },
     },
-  })
+    templateSelector,
+    myId
+  )
   const cardElement = card.getCard()
 
   return cardElement
@@ -82,17 +84,22 @@ function createCard(name, link, templateSelector, likeNumber) {
 
 const cardsGalery = new Section('.elements')
 
-// отрисовать предустановленные карточки
-api.getInitialCards().then((cardsArray) => {
-  cardsGalery.renderItems({
-    items: cardsArray,
-    renderer: (item) => {
-      cardsGalery.addItemAppend(
-        createCard(item.name, item.link, '.template', item.likes)
-      )
-    },
-  })
-})
+let myId = null
+const api = new Api(options)
+
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
+  ([userArray, cardsArray]) => {
+    myId = userArray._id // вынести мой id в глоб. обл. вид.
+    user.setUserInfo(userArray.name, userArray.about, userArray.avatar) // заполнить информацию о пользователе
+    cardsGalery.renderItems({
+      // отрисовать предустановленные карточки
+      items: cardsArray,
+      renderer: (item) => {
+        cardsGalery.addItemAppend(createCard(item, '.template'))
+      },
+    })
+  }
+)
 
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm('.profile-popup', (inputsObj) => {
@@ -110,16 +117,8 @@ const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
   api
     .postCard(inputsObj.nameInFormAddCard, inputsObj.aboutMeInFormAddCard)
     .then((responseCardElement) => {
-      cardsGalery.addItemPrepend(
-        createCard(
-          responseCardElement.name,
-          responseCardElement.link,
-          '.template',
-          responseCardElement.likes
-        )
-      )
+      cardsGalery.addItemPrepend(createCard(responseCardElement, '.template'))
     })
   addPopupClass.close()
 })
 addPopupClass.setEventListeners()
-
