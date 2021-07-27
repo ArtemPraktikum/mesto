@@ -3,9 +3,9 @@ import './index.css'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
-import Popup from '../components/Popup.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithSubmit from '../components/PopupWithSubmit.js'
 import UserInfo from '../components/UserInfo.js'
 import Api from '../components/Api.js'
 import {
@@ -19,8 +19,7 @@ import {
   formConfig,
 } from '../utils/constants.js'
 
-const cardDeletePopupClass = new Popup('.popup-delete')
-cardDeletePopupClass.setEventListeners()
+
 
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
@@ -123,3 +122,4 @@ const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
   addPopupClass.close()
 })
 addPopupClass.setEventListeners()
+
