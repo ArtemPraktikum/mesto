@@ -26,7 +26,7 @@ export default class Card {
     this._title = this._card.querySelector('.element__title') //Текст в карт.
     this._likeCounter = this._card.querySelector('.element__like-counter') //Цифра лайков в карт.
 
-    this._trash = this._card.querySelector('.element__trash-button') //Кнопка удалить в карт.
+    this._deleteButton = this._card.querySelector('.element__trash-button') //Кнопка удалить в карт.
     this._likeButton = this._card.querySelector('.element__like-button') //Кнопка лайк в карт.
 
     this._title.textContent = this._name
@@ -39,7 +39,7 @@ export default class Card {
     // }
     //Показывать кнопку удалить только на карточках пользователя
     if (this._myId === this._cardOwnerId) {
-      this._trash.classList.add('element__trash-button_visible')
+      this._deleteButton.classList.add('element__trash-button_visible')
     }
     //Если юзер уже ставил лайк показать в html закрашенный лайк
     if (this._isLiked()) {
@@ -54,12 +54,13 @@ export default class Card {
       this._handleLikeClick(this._cardId, this._isLiked())
     })
 
-    this._trash.addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDeleteIconClick(this._cardId)
     })
-    // this._image.addEventListener('click', () => {
-    //   this._handleCardClick(this._link, this._name)
-    // })
+
+    this._image.addEventListener('click', () => {
+      this._handleCardClick(this._link, this._name)
+    })
   }
   //поставить лайк в html
   changeLikeColor = () => {

@@ -61,7 +61,9 @@ function createCard(item, templateSelector) {
   const card = new Card(
     {
       data: item,
-      handleCardClick: () => {},
+      handleCardClick: (link, name) => {
+        popupFullScreenClass.open(link, name)
+      },
 
       handleLikeClick: (cardId, isLiked) => {
         if (!isLiked) {
