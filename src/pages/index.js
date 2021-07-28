@@ -148,3 +148,4 @@ const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
   addPopupClass.close()
 })
 addPopupClass.setEventListeners()
+// api.changeAvatar('https://html5css.ru/howto/img_snow.jpg')

@@ -4,6 +4,23 @@ export default class Api {
     this._url = url
     this._headers = headers
   }
+  changeAvatar(avatar) {
+    return fetch('https://nomoreparties.co/v1/cohort-26/users/me/avatar', {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(
+        `Ошибка в updateUserInfo бип-буп, статус: ${response.status}`
+      )
+    })
+  }
+
   UnlikeCard(cardId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/likes/${cardId}`, {
       method: 'DELETE',
