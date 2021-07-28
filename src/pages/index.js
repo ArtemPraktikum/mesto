@@ -62,7 +62,31 @@ function createCard(item, templateSelector) {
     {
       data: item,
       handleCardClick: () => {},
-      handleLikeClick: (card) => {},
+
+      handleLikeClick: (cardId, isLiked) => {
+        if (!isLiked) {
+          api
+            .likeCard(cardId)
+            .then((updatedCard) => {
+              card.updateLikes(updatedCard.likes)
+              card.changeLikeColor()
+            })
+            .catch((res) => {
+              console.log(res)
+            })
+        } else {
+          api
+            .UnlikeCard(cardId)
+            .then((updatedCard) => {
+              card.updateLikes(updatedCard.likes)
+              card.changeLikeColor()
+            })
+            .catch((res) => {
+              console.log(res)
+            })
+        }
+      },
+
       handleDeleteIconClick: (cardId) => {
         PopupWithSubmitClass.open()
         PopupWithSubmitClass.fillSubmitCallback(() => {

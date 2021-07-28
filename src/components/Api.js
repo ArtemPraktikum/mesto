@@ -4,6 +4,34 @@ export default class Api {
     this._url = url
     this._headers = headers
   }
+  UnlikeCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(
+        `Ошибка в likeCard бип-буп, статус: ${response.status}`
+      )
+    })
+  }
+
+  likeCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(
+        `Ошибка в likeCard бип-буп, статус: ${response.status}`
+      )
+    })
+  }
+
   deleteCard(cardId) {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/${cardId}`, {
       method: 'DELETE',
