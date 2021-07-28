@@ -1,18 +1,28 @@
 // попап 'о себе'
-export const profilePopup = document.querySelector('.profile-popup')
+const profilePopup = document.querySelector('.profile-popup')
 // попап 'карточка'
-export const addPopup = document.querySelector('.add-popup')
+const addPopup = document.querySelector('.add-popup')
+// попап 'аватар'
+const avatarPopup = document.querySelector('.avatar-popup')
+
 // форма в попапе 'о себе'
 export const formProfile = profilePopup.querySelector('.popup__container')
+// форма в попапе 'карточка'
+export const formAddCard = addPopup.querySelector('.popup__container')
+// форма в попапе 'аватар'
+export const formAvatar = avatarPopup.querySelector('.popup__container')
+
 // инпуты в форме в попапе 'о себе': Имя, обо мне.
 export const nameInput = formProfile.querySelector('#name')
 export const aboutInput = formProfile.querySelector('#aboutMe')
+
 // кнопка открыть попап 'о себе'
 export const openPopupAboumeButton = document.querySelector('.profile__edit-button')
-// форма в попапе 'карточка'
-export const formAddCard = addPopup.querySelector('.popup__container')
 // кнопка открыть попап 'карточка'
 export const openAddPopupButton = document.querySelector('.profile__add-button')
+// кнопка открыть попап 'аватар'
+export const openAvatarPopupButton = document.querySelector('.profile__avatar-button')
+
 export const userData = {
   nameSelector: '.profile__title',
   aboutMeSelector: '.profile__subtitle',
@@ -23,4 +33,12 @@ export const formConfig = {
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
   errorClass: 'popup__item-error_active'
+}
+export const options = {
+  cohort: 'cohort-26',
+  url: 'https://mesto.nomoreparties.co/v1',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
+  },
 }

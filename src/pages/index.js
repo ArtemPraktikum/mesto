@@ -10,22 +10,22 @@ import UserInfo from '../components/UserInfo.js'
 import Api from '../components/Api.js'
 import {
   formProfile,
+  formAddCard,
+  formAvatar,
   nameInput,
   aboutInput,
   openPopupAboumeButton,
-  formAddCard,
+  openAvatarPopupButton,
   openAddPopupButton,
   userData,
   formConfig,
+  options
 } from '../utils/constants.js'
 
-// попап 'фуллскрин'
-const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
-popupFullScreenClass.setEventListeners()
 
 const user = new UserInfo(userData)
 
-// навесить слушатель на кнопку открыть попап 'о себе'
+// открыть попап 'о себе'
 openPopupAboumeButton.addEventListener('click', () => {
   const { name, aboutMe } = user.getUserInfoFromPage()
   // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
@@ -35,28 +35,29 @@ openPopupAboumeButton.addEventListener('click', () => {
   // открыть попап 'о себе'
   profilePopupClass.open()
 })
-
-// навесить слушатель на кнопку открыть попап 'карточка'
+// открыть попап 'карточка'
 openAddPopupButton.addEventListener('click', () => {
   addPopupClass.open()
   validateAddPopup.toggleButtonState()
 })
+// открыть попап 'аватар'
+openAvatarPopupButton.addEventListener('click', () => {
+  avatarPopupClass.open()
+})
 
+// валидировать форму в попапе 'о себе'
 const validateProfilePopup = new FormValidator(formConfig, formProfile)
 validateProfilePopup.enableValidation()
+// валидировать форму в попапе 'карточка'
 const validateAddPopup = new FormValidator(formConfig, formAddCard)
 validateAddPopup.enableValidation()
+// валидировать форму в попапе 'аватар'
+const validateAvatarPopup = new FormValidator(formConfig, formAvatar)
+validateAvatarPopup.enableValidation()
 
 const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
 PopupWithSubmitClass.setEventListeners()
-const options = {
-  cohort: 'cohort-26',
-  url: 'https://mesto.nomoreparties.co/v1',
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-    authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
-  },
-}
+
 function createCard(item, templateSelector) {
   const card = new Card(
     {
@@ -64,22 +65,22 @@ function createCard(item, templateSelector) {
       handleCardClick: (link, name) => {
         popupFullScreenClass.open(link, name)
       },
-
+      
       handleLikeClick: (cardId, isLiked) => {
         if (!isLiked) {
           api
-            .likeCard(cardId)
-            .then((updatedCard) => {
-              card.updateLikes(updatedCard.likes)
-              card.changeLikeColor()
-            })
-            .catch((res) => {
-              console.log(res)
-            })
+          .likeCard(cardId)
+          .then((updatedCard) => {
+            card.updateLikes(updatedCard.likes)
+            card.changeLikeColor()
+          })
+          .catch((res) => {
+            console.log(res)
+          })
         } else {
           api
-            .UnlikeCard(cardId)
-            .then((updatedCard) => {
+          .UnlikeCard(cardId)
+          .then((updatedCard) => {
               card.updateLikes(updatedCard.likes)
               card.changeLikeColor()
             })
@@ -88,7 +89,7 @@ function createCard(item, templateSelector) {
             })
         }
       },
-
+      
       handleDeleteIconClick: (cardId) => {
         PopupWithSubmitClass.open()
         PopupWithSubmitClass.fillSubmitCallback(() => {
@@ -102,18 +103,18 @@ function createCard(item, templateSelector) {
     },
     templateSelector,
     myId
-  )
-  const cardElement = card.getCard()
-
-  return cardElement
-}
-
-const cardsGalery = new Section('.elements')
-
-let myId = null
-const api = new Api(options)
-
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
+    )
+    const cardElement = card.getCard()
+    
+    return cardElement
+  }
+  
+  const cardsGalery = new Section('.elements')
+  
+  let myId = null
+  const api = new Api(options)
+  
+  Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   ([userArray, cardsArray]) => {
     myId = userArray._id // вынести мой id в глоб. обл. вид.
     user.setUserInfo(userArray.name, userArray.about, userArray.avatar) // заполнить информацию о пользователе
@@ -125,27 +126,40 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
       },
     })
   }
-)
-
-// попап 'о себе'
-const profilePopupClass = new PopupWithForm('.profile-popup', (inputsObj) => {
-  api
+  )
+  
+  // попап 'фуллскрин'
+  const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
+  popupFullScreenClass.setEventListeners()
+  // попап 'о себе'
+  const profilePopupClass = new PopupWithForm('.profile-popup', (inputsObj) => {
+    api
     .updateUserInfo(inputsObj.nameInFormProfile, inputsObj.aboutMeInFormProfile)
     .then((userArray) => {
       user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
     })
-  profilePopupClass.close()
-})
-profilePopupClass.setEventListeners()
+    profilePopupClass.close()
+  })
+  profilePopupClass.setEventListeners()
 
-// попап 'карточка'
-const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
-  api
+  // попап 'карточка'
+  const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
+    api
     .postCard(inputsObj.nameInFormAddCard, inputsObj.aboutMeInFormAddCard)
     .then((responseCardElement) => {
       cardsGalery.addItemPrepend(createCard(responseCardElement, '.template'))
     })
-  addPopupClass.close()
+    addPopupClass.close()
+  })
+  addPopupClass.setEventListeners()
+
+// попап 'аватар'
+const avatarPopupClass = new PopupWithForm('.avatar-popup', (inputsObj) => {
+  api
+  .changeAvatar(inputsObj.avatarInformAvatar)
+  .then((userArray) => {
+    user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+  })
+  avatarPopupClass.close()
 })
-addPopupClass.setEventListeners()
-// api.changeAvatar('https://html5css.ru/howto/img_snow.jpg')
+avatarPopupClass.setEventListeners()

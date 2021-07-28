@@ -4,12 +4,12 @@ export default class Api {
     this._url = url
     this._headers = headers
   }
-  changeAvatar(avatar) {
+  changeAvatar(avatarLink) {
     return fetch('https://nomoreparties.co/v1/cohort-26/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar: avatarLink
       }),
     }).then((response) => {
       if (response.ok) {
