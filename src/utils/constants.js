@@ -23,6 +23,13 @@ export const openAddPopupButton = document.querySelector('.profile__add-button')
 // кнопка открыть попап 'аватар'
 export const openAvatarPopupButton = document.querySelector('.profile__avatar-button')
 
+// кнопка submit в попапе 'о себе'
+export const submitPopupAboumeButton = profilePopup.querySelector('.popup__sumbit-button')
+// кнопка submit в попапе 'карточка'
+export const submitAddPopupButton = addPopup.querySelector('.popup__sumbit-button')
+// кнопка submit в попапе 'аватар'
+export const submitAvatarPopupButton = avatarPopup.querySelector('.popup__sumbit-button')
+
 export const userData = {
   nameSelector: '.profile__title',
   aboutMeSelector: '.profile__subtitle',
@@ -33,12 +40,4 @@ export const formConfig = {
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
   errorClass: 'popup__item-error_active'
-}
-export const options = {
-  cohort: 'cohort-26',
-  url: 'https://mesto.nomoreparties.co/v1',
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-    authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
-  },
 }

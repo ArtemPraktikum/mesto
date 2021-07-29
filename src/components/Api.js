@@ -1,70 +1,61 @@
 export default class Api {
-  constructor({ cohort, url, headers }) {
-    this._cohort = cohort
-    this._url = url
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl
     this._headers = headers
   }
-  changeAvatar(avatarLink) {
-    return fetch('https://nomoreparties.co/v1/cohort-26/users/me/avatar', {
+  updateAvatar(avatarLink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatarLink
+        avatar: avatarLink,
       }),
     }).then((response) => {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в updateUserInfo бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 
   UnlikeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
     }).then((response) => {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в likeCard бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 
   likeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: this._headers
+      headers: this._headers,
     }).then((response) => {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в likeCard бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 
   deleteCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-26/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
     }).then((response) => {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в deleteCard бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 
   postCard(name, link) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards', {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -75,14 +66,12 @@ export default class Api {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в postCard бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 
   updateUserInfo(name, about) {
-    return fetch('https://nomoreparties.co/v1/cohort-26/users/me', {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -93,9 +82,7 @@ export default class Api {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в updateUserInfo бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
   getUserInfo() {
@@ -105,23 +92,17 @@ export default class Api {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        `Ошибка в getUserInfo бип-буп, статус: ${response.status}`
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
   getInitialCards() {
-    return fetch(`${this._url}/${this._cohort}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then((response) => {
       if (response.ok) {
         return response.json()
       }
-      return Promise.reject(
-        new Error(
-          `Ошибка в getInitialCards бип-буп, статус: ${response.status}`
-        )
-      )
+      return Promise.reject(`Ошибка: ${response.status}`)
     })
   }
 }
