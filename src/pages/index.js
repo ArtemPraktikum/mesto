@@ -1,5 +1,7 @@
+// Импорт css для webpack
 import './index.css'
 
+// Импорт классов
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
@@ -8,6 +10,8 @@ import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithSubmit from '../components/PopupWithSubmit.js'
 import UserInfo from '../components/UserInfo.js'
 import Api from '../components/Api.js'
+
+// Импорт констант из отдельного файла констант
 import {
   formProfile,
   formAddCard,
@@ -20,14 +24,25 @@ import {
   submitPopupAboumeButton,
   submitAddPopupButton,
   submitAvatarPopupButton,
-  userData,
+  userSelectors,
   formConfig,
 } from '../utils/constants.js'
 
 // пустая переменная в глоб. обл. вид. для последующего наполнения её userId
 export let userId = null
 
-const user = new UserInfo(userData)
+// экземпляр класса UserInfo
+const user = new UserInfo(userSelectors)
+// Экземпляр класса Section
+const cardsGalery = new Section('.elements')
+// Экземпляр класса api
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26',
+  headers: {
+    authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
+    'Content-Type': 'application/json',
+  },
+})
 
 // валидировать форму в попапе 'о себе'
 const validateProfilePopup = new FormValidator(formConfig, formProfile)
@@ -42,11 +57,10 @@ validateAvatarPopup.enableValidation()
 // открыть попап 'о себе'
 openPopupAboumeButton.addEventListener('click', () => {
   const { name, aboutMe } = user.getUserInfoFromPage()
-  // изменить инпут 'Имя' в попапе 'о себе' на заголовок 'Имя' из html
+
   nameInput.value = name
-  // изменить инпут 'обо мне' в попапе 'о себе' на подзаголовок 'обо мне' из html
   aboutInput.value = aboutMe
-  // открыть попап 'о себе'
+
   profilePopupClass.open()
   submitPopupAboumeButton.classList.add('popup__sumbit-button_inactive')
   submitPopupAboumeButton.disabled = true
@@ -61,9 +75,6 @@ openAvatarPopupButton.addEventListener('click', () => {
   avatarPopupClass.open()
   validateAvatarPopup.toggleButtonState()
 })
-
-const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
-PopupWithSubmitClass.setEventListeners()
 
 // Функция: создать экземпляр карточки
 function createCard(item, templateSelector) {
@@ -102,10 +113,15 @@ function createCard(item, templateSelector) {
         PopupWithSubmitClass.open()
         PopupWithSubmitClass.fillSubmitCallback(() => {
           // удалить карточку с сервера
-          api.deleteCard(cardId).then(() => {
-            card.deleteCard()
-            PopupWithSubmitClass.close()
-          })
+          api
+            .deleteCard(cardId)
+            .then(() => {
+              card.deleteCard()
+              PopupWithSubmitClass.close()
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         })
       },
     },
@@ -116,18 +132,6 @@ function createCard(item, templateSelector) {
 
   return cardElement
 }
-
-// Экземпляр класса Section
-const cardsGalery = new Section('.elements')
-
-// Экземпляр класса api
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26',
-  headers: {
-    authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
-    'Content-Type': 'application/json',
-  },
-})
 
 // Данные необходимые при загрузке страницы
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -146,10 +150,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(error)
   })
 
+// попап 'подтверждения удаления карточки'
+const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
+PopupWithSubmitClass.setEventListeners()
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()
-
 // попап 'о себе'
 const profilePopupClass = new PopupWithForm('.profile-popup', (inputsObj) => {
   submitPopupAboumeButton.textContent = 'Сохранение...'
@@ -160,6 +166,9 @@ const profilePopupClass = new PopupWithForm('.profile-popup', (inputsObj) => {
     })
     .then(() => {
       profilePopupClass.close()
+    })
+    .catch((error) => {
+      console.log(error)
     })
     .finally(() => {
       submitPopupAboumeButton.textContent = 'Сохранить'
@@ -178,6 +187,9 @@ const addPopupClass = new PopupWithForm('.add-popup', (inputsObj) => {
     .then(() => {
       addPopupClass.close()
     })
+    .catch((error) => {
+      console.log(error)
+    })
     .finally(() => {
       submitAddPopupButton.textContent = 'Создать'
     })
@@ -194,6 +206,9 @@ const avatarPopupClass = new PopupWithForm('.avatar-popup', (inputsObj) => {
     })
     .then(() => {
       avatarPopupClass.close()
+    })
+    .catch((error) => {
+      console.log(error)
     })
     .finally(() => {
       submitAvatarPopupButton.textContent = 'Сохранить'

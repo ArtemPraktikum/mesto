@@ -25,7 +25,6 @@
 @import "../blocks/element/__like-button/element__like-button.css";
 @import "../blocks/element/__like-button/_active/element__like-button_active.css";
 @import "../blocks/element/__like-counter/element__like-counter.css";
-@import "../blocks/element/__like-counter/_hiden/element__like-counter_hiden.css";
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";
 @import "../blocks/popup/popup.css";

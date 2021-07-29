@@ -17,27 +17,39 @@ export const nameInput = formProfile.querySelector('#name')
 export const aboutInput = formProfile.querySelector('#aboutMe')
 
 // кнопка открыть попап 'о себе'
-export const openPopupAboumeButton = document.querySelector('.profile__edit-button')
+export const openPopupAboumeButton = document.querySelector(
+  '.profile__edit-button'
+)
 // кнопка открыть попап 'карточка'
 export const openAddPopupButton = document.querySelector('.profile__add-button')
 // кнопка открыть попап 'аватар'
-export const openAvatarPopupButton = document.querySelector('.profile__avatar-button')
+export const openAvatarPopupButton = document.querySelector(
+  '.profile__avatar-button'
+)
 
 // кнопка submit в попапе 'о себе'
-export const submitPopupAboumeButton = profilePopup.querySelector('.popup__sumbit-button')
+export const submitPopupAboumeButton = profilePopup.querySelector(
+  '.popup__sumbit-button'
+)
 // кнопка submit в попапе 'карточка'
-export const submitAddPopupButton = addPopup.querySelector('.popup__sumbit-button')
+export const submitAddPopupButton = addPopup.querySelector(
+  '.popup__sumbit-button'
+)
 // кнопка submit в попапе 'аватар'
-export const submitAvatarPopupButton = avatarPopup.querySelector('.popup__sumbit-button')
+export const submitAvatarPopupButton = avatarPopup.querySelector(
+  '.popup__sumbit-button'
+)
 
-export const userData = {
+// обьект с селекторами html элементов c данными юзера
+export const userSelectors = {
   nameSelector: '.profile__title',
   aboutMeSelector: '.profile__subtitle',
-  avatarSelector: '.profile__avatar'
+  avatarSelector: '.profile__avatar',
 }
+// обьект с селекторами для валидации форм
 export const formConfig = {
   inputSelector: '.popup__item',
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
-  errorClass: 'popup__item-error_active'
+  errorClass: 'popup__item-error_active',
 }

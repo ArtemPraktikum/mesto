@@ -14,5 +14,5 @@ export default class PopupWithSubmit extends Popup {
   }
   fillSubmitCallback = (method) => {
     this._submitCallback = method
-  } 
+  }
 }

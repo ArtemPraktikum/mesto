@@ -6,8 +6,8 @@ export default class UserInfo {
   }
   getUserInfoFromPage() {
     this._userObj = {
-    name: this._nameElement.textContent,
-    aboutMe: this._aboutMeElement.textContent
+      name: this._nameElement.textContent,
+      aboutMe: this._aboutMeElement.textContent,
     }
     return this._userObj
   }
@@ -17,4 +17,3 @@ export default class UserInfo {
     this._avatar.setAttribute('src', avatarLink)
   }
 }
-

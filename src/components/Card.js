@@ -33,10 +33,7 @@ export default class Card {
     this._image.src = this._link
     this._image.alt = this._name
     this._likeCounter.textContent = this._likes.length
-    //Скрывать счётчик лайков если он == 0        (сделать если останется время)
-    // if (this._likeCounter.textContent == 0) {
-    //   this._likeCounter.classList.add('element__like-counter_hiden')
-    // }
+
     //Показывать кнопку удалить только на карточках пользователя
     if (this._userId === this._cardOwnerId) {
       this._deleteButton.classList.add('element__trash-button_visible')
