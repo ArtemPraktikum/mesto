@@ -2,7 +2,7 @@ export default class Card {
   constructor(
     { data, handleCardClick, handleLikeClick, handleDeleteIconClick },
     templateSelector,
-    myId
+    userId
   ) {
     this._name = data.name //Имя
     this._link = data.link //Ссылка на картинку
@@ -14,7 +14,7 @@ export default class Card {
     this._handleLikeClick = handleLikeClick
     this._handleDeleteIconClick = handleDeleteIconClick
     this._templateSelector = templateSelector
-    this._myId = myId
+    this._userId = userId
   }
 
   _makeCard = () => {
@@ -38,7 +38,7 @@ export default class Card {
     //   this._likeCounter.classList.add('element__like-counter_hiden')
     // }
     //Показывать кнопку удалить только на карточках пользователя
-    if (this._myId === this._cardOwnerId) {
+    if (this._userId === this._cardOwnerId) {
       this._deleteButton.classList.add('element__trash-button_visible')
     }
     //Если юзер уже ставил лайк показать в html закрашенный лайк
@@ -73,7 +73,7 @@ export default class Card {
   }
 
   _isLiked = () => {
-    return this._likes.some((like) => like._id === this._myId)
+    return this._likes.some((like) => like._id === this._userId)
   }
 
   getCard() {

@@ -24,6 +24,9 @@ import {
   formConfig,
 } from '../utils/constants.js'
 
+// пустая переменная в глоб. обл. вид. для последующего наполнения её userId
+export let userId = null
+
 const user = new UserInfo(userData)
 
 // валидировать форму в попапе 'о себе'
@@ -62,6 +65,7 @@ openAvatarPopupButton.addEventListener('click', () => {
 const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
 PopupWithSubmitClass.setEventListeners()
 
+// Функция: создать экземпляр карточки
 function createCard(item, templateSelector) {
   const card = new Card(
     {
@@ -78,8 +82,8 @@ function createCard(item, templateSelector) {
               card.updateLikes(updatedCard.likes)
               card.changeLikeColor()
             })
-            .catch((res) => {
-              console.log(res)
+            .catch((error) => {
+              console.log(error)
             })
         } else {
           api
@@ -88,8 +92,8 @@ function createCard(item, templateSelector) {
               card.updateLikes(updatedCard.likes)
               card.changeLikeColor()
             })
-            .catch((res) => {
-              console.log(res)
+            .catch((error) => {
+              console.log(error)
             })
         }
       },
@@ -106,27 +110,29 @@ function createCard(item, templateSelector) {
       },
     },
     templateSelector,
-    myId
+    userId
   )
   const cardElement = card.getCard()
 
   return cardElement
 }
 
+// Экземпляр класса Section
 const cardsGalery = new Section('.elements')
 
-let myId = null
+// Экземпляр класса api
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26',
   headers: {
     authorization: '91449a4f-6ddf-4765-abab-e8f1174fa9e0',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 })
 
+// Данные необходимые при загрузке страницы
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userArray, cardsArray]) => {
-    myId = userArray._id // вынести мой id в глоб. обл. вид.
+    userId = userArray._id // вынести мой id в глоб. обл. вид.
     user.setUserInfo(userArray.name, userArray.about, userArray.avatar) // заполнить информацию о пользователе
     cardsGalery.renderItems({
       // отрисовать предустановленные карточки
@@ -181,14 +187,16 @@ addPopupClass.setEventListeners()
 // попап 'аватар'
 const avatarPopupClass = new PopupWithForm('.avatar-popup', (inputsObj) => {
   submitAvatarPopupButton.textContent = 'Сохранение...'
-  api.updateAvatar(inputsObj.avatarInformAvatar).then((userArray) => {
-    user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
-  })
-  .then(() => {
-  avatarPopupClass.close()
-  })
-  .finally(() => {
-    submitAvatarPopupButton.textContent = 'Сохранить'
-  })
+  api
+    .updateAvatar(inputsObj.avatarInformAvatar)
+    .then((userArray) => {
+      user.setUserInfo(userArray.name, userArray.about, userArray.avatar)
+    })
+    .then(() => {
+      avatarPopupClass.close()
+    })
+    .finally(() => {
+      submitAvatarPopupButton.textContent = 'Сохранить'
+    })
 })
 avatarPopupClass.setEventListeners()
