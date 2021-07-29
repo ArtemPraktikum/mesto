@@ -1,8 +1,9 @@
 export default class FormValidator {
   constructor(
-    { inputSelector, submitButtonSelector, inactiveButtonClass, errorClass },
+    {inputErrorClass, inputSelector, submitButtonSelector, inactiveButtonClass, errorClass },
     formElement
   ) {
+    this._inputErrorClass = inputErrorClass
     this._inputSelector = inputSelector
     this._submitButtonSelector = submitButtonSelector
     this._inactiveButtonClass = inactiveButtonClass
@@ -23,6 +24,8 @@ export default class FormValidator {
     )
     this._errorElement.textContent = oneInput.validationMessage
     this._errorElement.classList.add(this._errorClass)
+
+    oneInput.classList.add(this._inputErrorClass)
   }
 
   _hideInputError = (oneInput) => {
@@ -31,6 +34,8 @@ export default class FormValidator {
     )
     this._errorElement.classList.remove(this._errorClass)
     this._errorElement.textContent = ''
+
+    oneInput.classList.remove(this._inputErrorClass)
   }
 
   _isValid = (oneInput) => {

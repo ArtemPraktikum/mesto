@@ -48,6 +48,7 @@ export const userSelectors = {
 }
 // обьект с селекторами для валидации форм
 export const formConfig = {
+  inputErrorClass: 'popup__item_error',
   inputSelector: '.popup__item',
   submitButtonSelector: '.popup__sumbit-button',
   inactiveButtonClass: 'popup__sumbit-button_inactive',
