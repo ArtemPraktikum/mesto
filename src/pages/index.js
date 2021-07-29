@@ -62,18 +62,17 @@ openPopupAboumeButton.addEventListener('click', () => {
   aboutInput.value = aboutMe
 
   profilePopupClass.open()
-  submitPopupAboumeButton.classList.add('popup__sumbit-button_inactive')
-  submitPopupAboumeButton.disabled = true
+  validateProfilePopup.resetValidation()
 })
 // открыть попап 'карточка'
 openAddPopupButton.addEventListener('click', () => {
   addPopupClass.open()
-  validateAddPopup.toggleButtonState()
+  validateAddPopup.resetValidation()
 })
 // открыть попап 'аватар'
 openAvatarPopupButton.addEventListener('click', () => {
   avatarPopupClass.open()
-  validateAvatarPopup.toggleButtonState()
+  validateAvatarPopup.resetValidation()
 })
 
 // Функция: создать экземпляр карточки
@@ -110,14 +109,14 @@ function createCard(item, templateSelector) {
       },
 
       handleDeleteIconClick: (cardId) => {
-        PopupWithSubmitClass.open()
-        PopupWithSubmitClass.fillSubmitCallback(() => {
+        popupWithSubmitClass.open()
+        popupWithSubmitClass.fillSubmitCallback(() => {
           // удалить карточку с сервера
           api
             .deleteCard(cardId)
             .then(() => {
               card.deleteCard()
-              PopupWithSubmitClass.close()
+              popupWithSubmitClass.close()
             })
             .catch((error) => {
               console.log(error)
@@ -151,8 +150,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   })
 
 // попап 'подтверждения удаления карточки'
-const PopupWithSubmitClass = new PopupWithSubmit('.popup-delete')
-PopupWithSubmitClass.setEventListeners()
+const popupWithSubmitClass = new PopupWithSubmit('.popup-delete')
+popupWithSubmitClass.setEventListeners()
 // попап 'фуллскрин'
 const popupFullScreenClass = new PopupWithImage('.popup_fullscreen')
 popupFullScreenClass.setEventListeners()

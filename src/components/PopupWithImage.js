@@ -1,13 +1,14 @@
 import Popup from './Popup.js'
 
 export default class PopupWithImage extends Popup {
-  open(link, name) {
+  constructor(popupSelector) {
+    super(popupSelector)
     this._previewImage = this._popup.querySelector('.fullscreen__image')
     this._previewCaption = this._popup.querySelector('.fullscreen__text')
-
-    this._previewImage.setAttribute('src', link)
-    //запись атрибута как this._previewImage.setAttribute.src не рабоает?! интересно почему
-    this._previewImage.setAttribute('alt', name)
+  }
+  open(link, name) {
+    this._previewImage.src = link
+    this._previewImage.alt = name
     this._previewCaption.textContent = name
 
     super.open()
